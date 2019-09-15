@@ -21,7 +21,7 @@ from dataset.get_data import get_data
 from models.resnet import *
 from models.irse import *
 from helpers import *
-from validate import *
+from evaluate import *
 from datetime import datetime, timedelta
 import time
 from logger import Logger
@@ -41,7 +41,7 @@ python3 train.py \
 --data_dir ./data/CASIA_Webface_160 \
 --batch_size 128 \
 --batch_size_test 128 \
---validate_batch_size 128 \
+--evaluate_batch_size 128 \
 --criterion_type arcface \
 --total_loss_type softmax \
 --optimizer_type sgd_bn \
@@ -165,8 +165,8 @@ def test(ARGS, model, device, test_loader, total_loss, loss_criterion, log_file_
         print_and_log(log_file_path, 'Total time for test: {}'.format(timedelta(seconds=time_for_test)))
 
 
-def validate(ARGS, validation_data_dic, model, device, log_file_path, logger, distance_metric, epoch):
-    if epoch % ARGS.validate_interval == 0 or epoch == ARGS.epochs:
+def evaluate(ARGS, validation_data_dic, model, device, log_file_path, logger, distance_metric, epoch):
+    if epoch % ARGS.evaluate_interval == 0 or epoch == ARGS.epochs:
 
         embedding_size = ARGS.features_dim
 
@@ -178,14 +178,14 @@ def validate(ARGS, validation_data_dic, model, device, log_file_path, logger, di
             t = time.time()
             print('\n\nRunnning forward pass on {} images'.format(val_type))
 
-            tpr, fpr, accuracy, val, val_std, far = validate_forward_pass(model, 
+            tpr, fpr, accuracy, val, val_std, far = evaluate_forward_pass(model, 
                                                                         loader, 
                                                                         dataset, 
                                                                         embedding_size, 
                                                                         device,
-                                                                        lfw_nrof_folds=ARGS.validate_nrof_folds, 
+                                                                        lfw_nrof_folds=ARGS.evaluate_nrof_folds, 
                                                                         distance_metric=distance_metric, 
-                                                                        subtract_mean=ARGS.validate_subtract_mean)
+                                                                        subtract_mean=ARGS.evaluate_subtract_mean)
 
 
             print_and_log(log_file_path, '\nEpoch: '+str(epoch))
@@ -255,11 +255,11 @@ def main(ARGS):
     validation_data_dic = {}
     for val_type in ARGS.validations:
         print_and_log(log_file_path, 'Init dataset and loader for validation type: {}'.format(val_type))
-        dataset, loader = get_validate_dataset_and_loader(root_dir=validation_paths_dic[val_type], 
+        dataset, loader = get_evaluate_dataset_and_loader(root_dir=validation_paths_dic[val_type], 
                                                                 type=val_type, 
                                                                 num_workers=ARGS.num_workers, 
                                                                 input_size=ARGS.input_size, 
-                                                                batch_size=ARGS.validate_batch_size)
+                                                                batch_size=ARGS.evaluate_batch_size)
         validation_data_dic[val_type+'_dataset'] = dataset
         validation_data_dic[val_type+'_loader'] = loader
     
@@ -378,7 +378,7 @@ def main(ARGS):
 
         train(ARGS, model, device, train_loader, total_loss, loss_criterion, optimizer, log_file_path, model_dir, logger, epoch)
         test(ARGS, model, device, test_loader, total_loss, loss_criterion, log_file_path, logger, epoch)
-        validate(ARGS, validation_data_dic, model, device, log_file_path, logger, distance_metric, epoch)
+        evaluate(ARGS, validation_data_dic, model, device, log_file_path, logger, distance_metric, epoch)
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
@@ -419,7 +419,7 @@ def parse_arguments(argv):
     parser.add_argument('--model_save_interval', type=int, help='Save model with every interval epochs.', default=1)
     parser.add_argument('--model_save_latest_path', type=str, help='Save latest saved model path.', default=None)
     parser.add_argument('--test_interval', type=int, help='Perform test with every interval epochs.', default=1)
-    parser.add_argument('--validate_interval', type=int, help='Perform validation test with every interval epochs.', default=1)    
+    parser.add_argument('--evaluate_interval', type=int, help='Perform validation test with every interval epochs.', default=1)    
     # Validation
     parser.add_argument('--validations', nargs='+', help='Face validation types', default=['LFW', 'CALFW', 'CPLFW', 'CFP_FF', 'CFP_FP'])  # support ['LFW', 'CALFW', 'CPLFW', 'CFP_FF', 'CFP_FP']
     parser.add_argument('--lfw_dir', type=str, help='Path to the data directory containing aligned face patches.', default='./data/lfw_112')
@@ -427,10 +427,10 @@ def parse_arguments(argv):
     parser.add_argument('--cplfw_dir', type=str, help='Path to the data directory containing aligned face patches.', default='./data/cplfw_112')
     parser.add_argument('--cfp_ff_dir', type=str, help='Path to the data directory containing aligned face patches.', default='./data/cfp_112')
     parser.add_argument('--cfp_fp_dir', type=str, help='Path to the data directory containing aligned face patches.', default='./data/cfp_112')
-    # parser.add_argument('--validate_distance_metric', type=int, help='Type of distance metric to use. 0: Euclidian, 1:Cosine similarity distance.', default=0)
-    parser.add_argument('--validate_subtract_mean', help='Subtract feature mean before calculating distance.', action='store_true', default=False)
-    parser.add_argument('--validate_batch_size', type=int, help='Number of images to process in a batch in the LFW test set.', default=100)
-    parser.add_argument('--validate_nrof_folds', type=int, help='Number of folds to use for cross validation. Mainly used for testing.', default=10)
+    # parser.add_argument('--evaluate_distance_metric', type=int, help='Type of distance metric to use. 0: Euclidian, 1:Cosine similarity distance.', default=0)
+    parser.add_argument('--evaluate_subtract_mean', help='Subtract feature mean before calculating distance.', action='store_true', default=False)
+    parser.add_argument('--evaluate_batch_size', type=int, help='Number of images to process in a batch in the LFW test set.', default=100)
+    parser.add_argument('--evaluate_nrof_folds', type=int, help='Number of folds to use for cross validation. Mainly used for testing.', default=10)
     return parser.parse_args(argv)
   
 

@@ -13,7 +13,7 @@ from sklearn import metrics
 from scipy.optimize import brentq
 from scipy import interpolate
 import argparse
-from validate_helpers import *
+from evaluate_helpers import *
 
 from models.resnet import *
 from models.irse import *
@@ -22,14 +22,14 @@ from pdb import set_trace as bp
 
 """
 EXAMPLE:
-python3 validate.py  \
+python3 evaluate.py  \
 --model_path ./pth/IR_50_MODEL_arcface_casia_epoch56_lfw9925.pth \
 --model_type IR_50 \
 --num_workers 8 \
 --batch_size 100
 """
 
-class ValidateDataset(data.Dataset):
+class EvaluateDataset(data.Dataset):
     
     def __init__(self, paths, actual_issame, input_size):
     
@@ -59,7 +59,7 @@ class ValidateDataset(data.Dataset):
         return len(self.paths)
 
 
-def validate_forward_pass(model, lfw_loader, lfw_dataset, embedding_size, device, lfw_nrof_folds, distance_metric, subtract_mean):
+def evaluate_forward_pass(model, lfw_loader, lfw_dataset, embedding_size, device, lfw_nrof_folds, distance_metric, subtract_mean):
 
     nrof_images = lfw_dataset.nrof_embeddings
 
@@ -218,7 +218,7 @@ def parse_dif_same_file(filepath):
 
 #-------------------------------------------------------------
 
-def get_validate_dataset_and_loader(root_dir, type='LFW', num_workers=2, input_size=[112, 112], batch_size=100):
+def get_evaluate_dataset_and_loader(root_dir, type='LFW', num_workers=2, input_size=[112, 112], batch_size=100):
     ######## dataset setup
     if type == 'CALFW':
         paths, actual_issame = get_paths_issame_CALFW(root_dir)
@@ -231,13 +231,13 @@ def get_validate_dataset_and_loader(root_dir, type='LFW', num_workers=2, input_s
     else:
         paths, actual_issame = get_paths_issame_LFW(root_dir)
 
-    dataset = ValidateDataset(paths=paths, actual_issame=actual_issame, input_size=input_size)
+    dataset = EvaluateDataset(paths=paths, actual_issame=actual_issame, input_size=input_size)
     loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
     return dataset, loader
 
 
-def print_validate_result(type, tpr, fpr, accuracy, val, val_std, far):
+def print_evaluate_result(type, tpr, fpr, accuracy, val, val_std, far):
     print("=" * 60)
     print("Validation TYPE: {}".format(type))
     print('Accuracy: %2.5f+-%2.5f' % (np.mean(accuracy), np.std(accuracy)))
@@ -292,10 +292,10 @@ def main(ARGS):
     model.eval()
 
     ##########################################################################################
-    #### Validate LFW Example
+    #### Evaluate LFW Example
     type='LFW'
     root_dir='./data/lfw_112'
-    dataset, loader = get_validate_dataset_and_loader(root_dir=root_dir, 
+    dataset, loader = get_evaluate_dataset_and_loader(root_dir=root_dir, 
                                                             type=type, 
                                                             num_workers=ARGS.num_workers, 
                                                             input_size=[112, 112], 
@@ -303,7 +303,7 @@ def main(ARGS):
 
     print('Runnning forward pass on {} images'.format(type))
 
-    tpr, fpr, accuracy, val, val_std, far = validate_forward_pass(model, 
+    tpr, fpr, accuracy, val, val_std, far = evaluate_forward_pass(model, 
                                                                 loader, 
                                                                 dataset, 
                                                                 embedding_size, 
@@ -312,16 +312,16 @@ def main(ARGS):
                                                                 distance_metric=1, 
                                                                 subtract_mean=False)
 
-    print_validate_result(type, tpr, fpr, accuracy, val, val_std, far)
-    #### End of Validate LFW Example
+    print_evaluate_result(type, tpr, fpr, accuracy, val, val_std, far)
+    #### End of Evaluate LFW Example
     ##########################################################################################
 
 
     ##########################################################################################
-    ### Validate CALFW Example
+    ### Evaluate CALFW Example
     type='CALFW'
     root_dir='./data/calfw_112'
-    dataset, loader = get_validate_dataset_and_loader(root_dir=root_dir, 
+    dataset, loader = get_evaluate_dataset_and_loader(root_dir=root_dir, 
                                                             type=type, 
                                                             num_workers=ARGS.num_workers, 
                                                             input_size=[112, 112], 
@@ -329,7 +329,7 @@ def main(ARGS):
 
     print('Runnning forward pass on {} images'.format(type))
 
-    tpr, fpr, accuracy, val, val_std, far = validate_forward_pass(model, 
+    tpr, fpr, accuracy, val, val_std, far = evaluate_forward_pass(model, 
                                                                 loader, 
                                                                 dataset, 
                                                                 embedding_size, 
@@ -338,15 +338,15 @@ def main(ARGS):
                                                                 distance_metric=1, 
                                                                 subtract_mean=False)
 
-    print_validate_result(type, tpr, fpr, accuracy, val, val_std, far)
-    #### End of Validate CALFW Example
+    print_evaluate_result(type, tpr, fpr, accuracy, val, val_std, far)
+    #### End of Evaluate CALFW Example
     ##########################################################################################
 
     ##########################################################################################
-    ### Validate CPLFW Example
+    ### Evaluate CPLFW Example
     type='CPLFW'
     root_dir='./data/cplfw_112'
-    dataset, loader = get_validate_dataset_and_loader(root_dir=root_dir, 
+    dataset, loader = get_evaluate_dataset_and_loader(root_dir=root_dir, 
                                                             type=type, 
                                                             num_workers=ARGS.num_workers, 
                                                             input_size=[112, 112], 
@@ -354,7 +354,7 @@ def main(ARGS):
 
     print('Runnning forward pass on {} images'.format(type))
 
-    tpr, fpr, accuracy, val, val_std, far = validate_forward_pass(model, 
+    tpr, fpr, accuracy, val, val_std, far = evaluate_forward_pass(model, 
                                                                 loader, 
                                                                 dataset, 
                                                                 embedding_size, 
@@ -363,16 +363,16 @@ def main(ARGS):
                                                                 distance_metric=1, 
                                                                 subtract_mean=False)
 
-    print_validate_result(type, tpr, fpr, accuracy, val, val_std, far)
-    #### End of Validate CPLFW Example
+    print_evaluate_result(type, tpr, fpr, accuracy, val, val_std, far)
+    #### End of Evaluate CPLFW Example
     ##########################################################################################
 
 
     ##########################################################################################
-    ### Validate CFP_FF Example
+    ### Evaluate CFP_FF Example
     type='CFP_FF'
     root_dir='./data/cfp_112'
-    dataset, loader = get_validate_dataset_and_loader(root_dir=root_dir, 
+    dataset, loader = get_evaluate_dataset_and_loader(root_dir=root_dir, 
                                                             type=type, 
                                                             num_workers=ARGS.num_workers, 
                                                             input_size=[112, 112], 
@@ -380,7 +380,7 @@ def main(ARGS):
 
     print('Runnning forward pass on {} images'.format(type))
 
-    tpr, fpr, accuracy, val, val_std, far = validate_forward_pass(model, 
+    tpr, fpr, accuracy, val, val_std, far = evaluate_forward_pass(model, 
                                                                 loader, 
                                                                 dataset, 
                                                                 embedding_size, 
@@ -389,16 +389,16 @@ def main(ARGS):
                                                                 distance_metric=1, 
                                                                 subtract_mean=False)
 
-    print_validate_result(type, tpr, fpr, accuracy, val, val_std, far)
-    #### End of Validate CFP_FF Example
+    print_evaluate_result(type, tpr, fpr, accuracy, val, val_std, far)
+    #### End of Evaluate CFP_FF Example
     ##########################################################################################
 
 
     ##########################################################################################
-    ### Validate CFP_FP Example
+    ### Evaluate CFP_FP Example
     type='CFP_FP'
     root_dir='./data/cfp_112'
-    dataset, loader = get_validate_dataset_and_loader(root_dir=root_dir, 
+    dataset, loader = get_evaluate_dataset_and_loader(root_dir=root_dir, 
                                                             type=type, 
                                                             num_workers=ARGS.num_workers, 
                                                             input_size=[112, 112], 
@@ -406,7 +406,7 @@ def main(ARGS):
 
     print('Runnning forward pass on {} images'.format(type))
 
-    tpr, fpr, accuracy, val, val_std, far = validate_forward_pass(model, 
+    tpr, fpr, accuracy, val, val_std, far = evaluate_forward_pass(model, 
                                                                 loader, 
                                                                 dataset, 
                                                                 embedding_size, 
@@ -415,8 +415,8 @@ def main(ARGS):
                                                                 distance_metric=1, 
                                                                 subtract_mean=False)
 
-    print_validate_result(type, tpr, fpr, accuracy, val, val_std, far)
-    #### End of Validate CFP_FP Example
+    print_evaluate_result(type, tpr, fpr, accuracy, val, val_std, far)
+    #### End of Evaluate CFP_FP Example
     ##########################################################################################
 
 
