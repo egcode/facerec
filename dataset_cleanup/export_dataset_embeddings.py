@@ -24,10 +24,6 @@ from torchvision import transforms as T
 import torchvision
 from PIL import Image
 import matplotlib.pyplot as plt
-
-from models.resnet import *
-from models.irse import *
-
 from helpers import *
 import h5py
 from datetime import datetime, timedelta
@@ -65,7 +61,7 @@ COSFACE LOSS-Eugene Casia
 #################################################################################
 
 python3 dataset_cleanup/export_dataset_embeddings.py \
-./pth/IR_50_MODEL_arcface_casia_epoch56_lfw9925.pth \
+./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
 ./data/embedding_test/ \
 --model_type IR_50 \
 --image_batch 5 \
@@ -156,40 +152,21 @@ def main(ARGS):
     label_strings = [name for name in classes if \
        os.path.isdir(os.path.join(path_exp, name))]
 
-
+    ####### Device setup
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     ####### Model setup
+    print("Use CUDA: " + str(use_cuda))
     print('Model type: %s' % ARGS.model_type)
-    if ARGS.model_type == 'ResNet_50':
-        model = ResNet_50(ARGS.input_size)
-    elif ARGS.model_type == 'ResNet_101':
-        model = ResNet_101(ARGS.input_size)
-    elif ARGS.model_type == 'ResNet_152':
-        model = ResNet_152(ARGS.input_size)
-    elif ARGS.model_type == 'IR_50':
-        model = IR_50(ARGS.input_size)
-    elif ARGS.model_type == 'IR_101':
-        model = IR_101(ARGS.input_size)
-    elif ARGS.model_type == 'IR_152':
-        model = IR_152(ARGS.input_size)
-    elif ARGS.model_type == 'IR_SE_50':
-        model = IR_SE_50(ARGS.input_size)
-    elif ARGS.model_type == 'IR_SE_101':
-        model = IR_SE_101(ARGS.input_size)
-    elif ARGS.model_type == 'IR_SE_152':
-        model = IR_SE_152(ARGS.input_size)
-    else:
-        raise AssertionError('Unsuported model_type {}. We only support: [\'ResNet_50\', \'ResNet_101\', \'ResNet_152\', \'IR_50\', \'IR_101\', \'IR_152\', \'IR_SE_50\', \'IR_SE_101\', \'IR_SE_152\']'.format(ARGS.model_type))
-
+    model = get_model(ARGS.model_type, ARGS.input_size)
     if use_cuda:
         model.load_state_dict(torch.load(ARGS.model_path))
     else:
         model.load_state_dict(torch.load(ARGS.model_path, map_location='cpu'))
-
     model.to(device)
     model.eval()
+
     embedding_size = 512
     # emb_array = np.zeros((nrof_images, embedding_size))
     start_time = time.time()
