@@ -12,21 +12,24 @@ ARCFACE LOSS MS1-Celeb
 
 # Eugene Image
 python3 app/compare_embeddings_with_image.py \
---model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_type IR_50 \
 --image_path ./data/test_images/eugene1.png \
 --h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 # Liuba Image
 python3 app/compare_embeddings_with_image.py \
---model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_type IR_50 \
 --image_path ./data/test_images/liuba1.jpg \
 --h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 # Julia Image
 python3 app/compare_embeddings_with_image.py \
---model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_type IR_50 \
 --image_path ./data/test_images/julia1.jpg \
 --h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
@@ -34,14 +37,16 @@ python3 app/compare_embeddings_with_image.py \
 
 # Curen Image
 python3 app/compare_embeddings_with_image.py \
---model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_type IR_50 \
 --image_path ./data/test_images/curen1.jpg \
 --h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 # Jeffrey Image
 python3 app/compare_embeddings_with_image.py \
---model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_type IR_50 \
 --image_path ./data/test_images/jeffrey2.jpg \
 --h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
@@ -49,14 +54,16 @@ python3 app/compare_embeddings_with_image.py \
 
 # David Image
 python3 app/compare_embeddings_with_image.py \
---model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_type IR_50 \
 --image_path ./data/test_images/david1.jpg \
 --h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 # Alex Image
 python3 app/compare_embeddings_with_image.py \
---model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
+--model_type IR_50 \
 --image_path ./data/test_images/alex3.jpg \
 --h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
@@ -85,8 +92,6 @@ import torchvision
 from PIL import Image
 from scipy import spatial
 
-from models.resnet import *
-from models.irse import *
 from helpers import *
 from pdb import set_trace as bp
 import h5py                                                                                                                                                                                   
@@ -101,12 +106,21 @@ def main(ARGS):
     ccropped, flipped = crop_and_flip(image_data_rgb, for_dataloader=False)
     # image_data.save('pilllllllll.png')
     
-    ####### Model setup
+    ####### Device setup
+    use_cuda = torch.cuda.is_available()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = IR_50([112, 112])
-    model.load_state_dict(torch.load(ARGS.model, map_location='cpu'))
+
+    ####### Model setup
+    print("Use CUDA: " + str(use_cuda))
+    print('Model type: %s' % ARGS.model_type)
+    model = get_model(ARGS.model_type, ARGS.input_size)
+    if use_cuda:
+        model.load_state_dict(torch.load(ARGS.model_path))
+    else:
+        model.load_state_dict(torch.load(ARGS.model_path, map_location='cpu'))
     model.to(device)
     model.eval()
+
     #########################################
 
     with torch.no_grad():
@@ -147,7 +161,9 @@ def main(ARGS):
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, help='pth model file')
+    parser.add_argument('--model_path', type=str, help='pth model file')
+    parser.add_argument('--model_type', type=str, help='Model type to use for training.', default='IR_50')# support: ['ResNet_50', 'ResNet_101', 'ResNet_152', 'IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
+    parser.add_argument('--input_size', type=str, help='support: [112, 112] and [224, 224]', default=[112, 112])
     parser.add_argument('--image_path', type=str, help='image to compare')
     parser.add_argument('--h5_name', type=str, help='h5 file name', default='./out_embeddings/golovan_112.h5')
     parser.add_argument('--distance_metric', type=int, help='Type of distance metric to use. 0: Euclidian, 1:Cosine similarity distance.', default=0)

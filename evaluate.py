@@ -254,10 +254,13 @@ def main(ARGS):
         raise AssertionError("Path should not be None")
 
     ######### distance_metric = 1 #### if CenterLoss = 0, If Cosface = 1
+
+    ####### Device setup
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     ####### Model setup
+    print("Use CUDA: " + str(use_cuda))
     print('Model type: %s' % ARGS.model_type)
     model = get_model(ARGS.model_type, ARGS.input_size)
 
