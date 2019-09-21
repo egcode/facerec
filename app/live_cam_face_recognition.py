@@ -11,7 +11,8 @@ ARCFACE LOSS - MS1-Celeb
 #################################################################################
 
 python3 app/live_cam_face_recognition.py \
---model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--model_type IR_50 \
 --unknown_face unknown \
 --max_threshold 0.6 \
 --distance_metric 1 \
@@ -37,8 +38,6 @@ from torch.utils import data
 from torchvision import transforms as T
 import torchvision
 from PIL import Image
-from models.resnet import *
-from models.irse import *
 from helpers import *
 from pdb import set_trace as bp
 import h5py                                                                                                                                                                                   
@@ -117,10 +116,18 @@ def main(ARGS):
 
     detect = Detection()
       
-    ####### Model setup
+    ####### Device setup
+    use_cuda = torch.cuda.is_available()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = IR_50([112, 112])
-    model.load_state_dict(torch.load(ARGS.model, map_location='cpu'))
+
+    ####### Model setup
+    print("Use CUDA: " + str(use_cuda))
+    print('Model type: %s' % ARGS.model_type)
+    model = get_model(ARGS.model_type, ARGS.input_size)
+    if use_cuda:
+        model.load_state_dict(torch.load(ARGS.model_path))
+    else:
+        model.load_state_dict(torch.load(ARGS.model_path, map_location='cpu'))
     model.to(device)
     model.eval()
 
@@ -212,7 +219,9 @@ def add_overlays(frame, faces, ARGS):
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, help='pth model file')
+    parser.add_argument('--model_path', type=str, help='pth model file')
+    parser.add_argument('--model_type', type=str, help='Model type to use for training.', default='IR_50')# support: ['ResNet_50', 'ResNet_101', 'ResNet_152', 'IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
+    parser.add_argument('--input_size', type=str, help='support: [112, 112] and [224, 224]', default=[112, 112])
     parser.add_argument('--image_size', type=int, help='Image size (height, width) in pixels.', default=112)
     parser.add_argument('--seed', type=int, help='Random seed.', default=666)
     parser.add_argument('--margin', type=int, help='Margin for the crop around the bounding box (height, width) in pixels.', default=44)
