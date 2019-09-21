@@ -10,6 +10,7 @@ output_arrays/
 out_data/
 data/
 data_backup/
+out_embeddings/
 # C extensions
 *.so
 

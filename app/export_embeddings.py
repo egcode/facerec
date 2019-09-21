@@ -331,7 +331,7 @@ def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('model', type=str, help='pth model file')
     parser.add_argument('data_dir', type=str, help='Directory containing images. If images are not already aligned and cropped include --is_aligned False.')
-    parser.add_argument('--output_dir', type=str, help='Dir where to save all embeddings and demo images', default='out_data/')
+    parser.add_argument('--output_dir', type=str, help='Dir where to save all embeddings and demo images', default='out_embeddings/')
     parser.add_argument('--is_aligned', type=int, help='Is the data directory already aligned and cropped? 0:False 1:True', default=1)
     parser.add_argument('--with_demo_images', type=int, help='Embedding Images 0:False 1:True', default=1)
     parser.add_argument('--image_size', type=int, help='Image size (height, width) in pixels.', default=112)

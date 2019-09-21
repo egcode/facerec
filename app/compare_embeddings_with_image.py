@@ -14,21 +14,21 @@ ARCFACE LOSS MS1-Celeb
 python3 app/compare_embeddings_with_image.py \
 --model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
 --image_path ./data/test_images/eugene1.png \
---h5_name ./out_data/golovan_112.h5 \
+--h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 # Liuba Image
 python3 app/compare_embeddings_with_image.py \
 --model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
 --image_path ./data/test_images/liuba1.jpg \
---h5_name ./out_data/golovan_112.h5 \
+--h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 # Julia Image
 python3 app/compare_embeddings_with_image.py \
 --model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
 --image_path ./data/test_images/julia1.jpg \
---h5_name ./out_data/golovan_112.h5 \
+--h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 
@@ -36,14 +36,14 @@ python3 app/compare_embeddings_with_image.py \
 python3 app/compare_embeddings_with_image.py \
 --model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
 --image_path ./data/test_images/curen1.jpg \
---h5_name ./out_data/golovan_112.h5 \
+--h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 # Jeffrey Image
 python3 app/compare_embeddings_with_image.py \
 --model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
 --image_path ./data/test_images/jeffrey2.jpg \
---h5_name ./out_data/golovan_112.h5 \
+--h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 
@@ -51,14 +51,14 @@ python3 app/compare_embeddings_with_image.py \
 python3 app/compare_embeddings_with_image.py \
 --model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
 --image_path ./data/test_images/david1.jpg \
---h5_name ./out_data/golovan_112.h5 \
+--h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 # Alex Image
 python3 app/compare_embeddings_with_image.py \
 --model ./pth/IR_50_MODEL_arcface_ms1celeb_epoch88_lfw9957.pth \
 --image_path ./data/test_images/alex3.jpg \
---h5_name ./out_data/golovan_112.h5 \
+--h5_name ./out_embeddings/golovan_112.h5 \
 --distance_metric 1
 
 '''
@@ -149,7 +149,7 @@ def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str, help='pth model file')
     parser.add_argument('--image_path', type=str, help='image to compare')
-    parser.add_argument('--h5_name', type=str, help='h5 file name', default='./out_data/golovan_112.h5')
+    parser.add_argument('--h5_name', type=str, help='h5 file name', default='./out_embeddings/golovan_112.h5')
     parser.add_argument('--distance_metric', type=int, help='Type of distance metric to use. 0: Euclidian, 1:Cosine similarity distance.', default=0)
     return parser.parse_args(argv)
 

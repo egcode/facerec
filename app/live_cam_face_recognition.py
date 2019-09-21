@@ -15,7 +15,7 @@ python3 app/live_cam_face_recognition.py \
 --unknown_face unknown \
 --max_threshold 0.6 \
 --distance_metric 1 \
---h5_name ./out_data/golovan_112.h5
+--h5_name ./out_embeddings/golovan_112.h5
 '''
 
 import tensorflow as tf
