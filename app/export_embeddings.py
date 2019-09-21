@@ -26,9 +26,6 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
-from models.resnet import *
-from models.irse import *
-
 from helpers import *
 
 """
@@ -39,6 +36,7 @@ ARCFACE LOSS MS1-Celeb
 #################################################################################
 
 python3 app/export_embeddings.py ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth ./data/golovan_112/ \
+--model_type IR_50 \
 --is_aligned 1 \
 --with_demo_images 1 \
 --image_size 112 \
@@ -203,12 +201,22 @@ def main(ARGS):
        os.path.isdir(os.path.join(path_exp, name))]
 
 
-    ####### Model setup
+
+    ####### Device setup
+    use_cuda = torch.cuda.is_available()
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = IR_50([112, 112])
-    model.load_state_dict(torch.load(ARGS.model, map_location='cpu'))
+
+    ####### Model setup
+    print("Use CUDA: " + str(use_cuda))
+    print('Model type: %s' % ARGS.model_type)
+    model = get_model(ARGS.model_type, ARGS.input_size)
+    if use_cuda:
+        model.load_state_dict(torch.load(ARGS.model_path))
+    else:
+        model.load_state_dict(torch.load(ARGS.model_path, map_location='cpu'))
     model.to(device)
     model.eval()
+
 
     embedding_size = 512
     start_time = time.time()
@@ -329,8 +337,10 @@ def load_and_align_data(image_path, image_size, margin, gpu_memory_fraction):
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('model', type=str, help='pth model file')
+    parser.add_argument('model_path', type=str, help='pth model file')
     parser.add_argument('data_dir', type=str, help='Directory containing images. If images are not already aligned and cropped include --is_aligned False.')
+    parser.add_argument('--model_type', type=str, help='Model type to use for training.', default='IR_50')# support: ['ResNet_50', 'ResNet_101', 'ResNet_152', 'IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
+    parser.add_argument('--input_size', type=str, help='support: [112, 112] and [224, 224]', default=[112, 112])
     parser.add_argument('--output_dir', type=str, help='Dir where to save all embeddings and demo images', default='out_embeddings/')
     parser.add_argument('--is_aligned', type=int, help='Is the data directory already aligned and cropped? 0:False 1:True', default=1)
     parser.add_argument('--with_demo_images', type=int, help='Embedding Images 0:False 1:True', default=1)
