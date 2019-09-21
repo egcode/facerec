@@ -38,12 +38,12 @@ from helpers import *
 ARCFACE LOSS MS1-Celeb
 #################################################################################
 
-python3 app/export_embeddings_h5.py ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth ./data/golovan_112/ \
+python3 app/export_embeddings.py ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth ./data/golovan_112/ \
 --is_aligned 1 \
 --with_demo_images 1 \
 --image_size 112 \
 --image_batch 5 \
---h5_name dataset.h5
+--h5_name golovan_112.h5
 
 """
 
@@ -331,7 +331,7 @@ def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('model', type=str, help='pth model file')
     parser.add_argument('data_dir', type=str, help='Directory containing images. If images are not already aligned and cropped include --is_aligned False.')
-    parser.add_argument('--output_dir', type=str, help='Dir where to save all embeddings and demo images', default='output_arrays/')
+    parser.add_argument('--output_dir', type=str, help='Dir where to save all embeddings and demo images', default='out_data/')
     parser.add_argument('--is_aligned', type=int, help='Is the data directory already aligned and cropped? 0:False 1:True', default=1)
     parser.add_argument('--with_demo_images', type=int, help='Embedding Images 0:False 1:True', default=1)
     parser.add_argument('--image_size', type=int, help='Image size (height, width) in pixels.', default=112)
