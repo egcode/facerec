@@ -14,16 +14,14 @@ from scipy.optimize import brentq
 from scipy import interpolate
 import argparse
 from evaluate_helpers import *
-
-from models.resnet import *
-from models.irse import *
+from helpers import get_model
 
 from pdb import set_trace as bp
 
 """
 EXAMPLE:
 python3 evaluate.py  \
---model_path ./pth/IR_50_MODEL_arcface_casia_epoch56_lfw9925.pth \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
 --model_type IR_50 \
 --num_workers 8 \
 --batch_size 100
@@ -261,26 +259,7 @@ def main(ARGS):
 
     ####### Model setup
     print('Model type: %s' % ARGS.model_type)
-    if ARGS.model_type == 'ResNet_50':
-        model = ResNet_50(ARGS.input_size)
-    elif ARGS.model_type == 'ResNet_101':
-        model = ResNet_101(ARGS.input_size)
-    elif ARGS.model_type == 'ResNet_152':
-        model = ResNet_152(ARGS.input_size)
-    elif ARGS.model_type == 'IR_50':
-        model = IR_50(ARGS.input_size)
-    elif ARGS.model_type == 'IR_101':
-        model = IR_101(ARGS.input_size)
-    elif ARGS.model_type == 'IR_152':
-        model = IR_152(ARGS.input_size)
-    elif ARGS.model_type == 'IR_SE_50':
-        model = IR_SE_50(ARGS.input_size)
-    elif ARGS.model_type == 'IR_SE_101':
-        model = IR_SE_101(ARGS.input_size)
-    elif ARGS.model_type == 'IR_SE_152':
-        model = IR_SE_152(ARGS.input_size)
-    else:
-        raise AssertionError('Unsuported model_type {}. We only support: [\'ResNet_50\', \'ResNet_101\', \'ResNet_152\', \'IR_50\', \'IR_101\', \'IR_152\', \'IR_SE_50\', \'IR_SE_101\', \'IR_SE_152\']'.format(ARGS.model_type))
+    model = get_model(ARGS.model_type, ARGS.input_size)
 
     if use_cuda:
         model.load_state_dict(torch.load(ARGS.model_path))

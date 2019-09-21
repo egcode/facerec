@@ -11,8 +11,35 @@ from PIL import Image
 import numpy as np
 from scipy import spatial
 import math
+from models.resnet import *
+from models.irse import *
 
 from pdb import set_trace as bp
+
+###################################################################
+## Model Helpers
+
+def get_model(model_type, input_size):
+    if model_type == 'ResNet_50':
+        return ResNet_50(input_size)
+    elif model_type == 'ResNet_101':
+        return ResNet_101(input_size)
+    elif model_type == 'ResNet_152':
+        return ResNet_152(input_size)
+    elif model_type == 'IR_50':
+        return IR_50(input_size)
+    elif model_type == 'IR_101':
+        return IR_101(input_size)
+    elif model_type == 'IR_152':
+        return IR_152(input_size)
+    elif model_type == 'IR_SE_50':
+        return IR_SE_50(input_size)
+    elif model_type == 'IR_SE_101':
+        return IR_SE_101(input_size)
+    elif model_type == 'IR_SE_152':
+        return IR_SE_152(input_size)
+    else:
+        raise AssertionError('Unsuported model_type {}. We only support: [\'ResNet_50\', \'ResNet_101\', \'ResNet_152\', \'IR_50\', \'IR_101\', \'IR_152\', \'IR_SE_50\', \'IR_SE_101\', \'IR_SE_152\']'.format(ARGS.model_type))
 
 ###################################################################
 ## Train Helpers
