@@ -105,9 +105,9 @@ def main(ARGS):
             # print("unique labels: " + str(uniq_labels) + "    " + "unique count: " + str(uniq_count))
             print("most often unique label: " + str(uniq_labels[0]) + "  we will only save this label from cluster")
 
-            good_values = np.isin(pred, uniq_labels[0])
+            good_values = np.isin(pred, np.argmax(uniq_count))
             print("values to export: " + str(good_values))
-
+            
             for i, image_path in enumerate(image_paths_array):
                 if good_values[i] == True:
                     # print("\tExporting image: " + str(image_path))
