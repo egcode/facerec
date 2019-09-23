@@ -10,7 +10,7 @@ from __future__ import print_function
 ARCFACE LOSS - MS1-Celeb
 #################################################################################
 
-python3 app/live_cam_face_recognition.py \
+python3 app/face_recognition_live_cam.py \
 --model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
 --model_type IR_50 \
 --unknown_face unknown \
