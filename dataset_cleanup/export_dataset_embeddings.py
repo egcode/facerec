@@ -10,7 +10,6 @@ import numpy as np
 import sys
 import os
 import argparse
-import align.detect_face
 import glob
 
 from pdb import set_trace as bp
