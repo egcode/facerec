@@ -88,6 +88,17 @@ def main(ARGS):
             # dend = shc.dendrogram(shc.linkage(embeddings_array, method='average'),labels=label_strings_array,color_threshold=1.0)
             # plt.show()
 
+            ### If Only One image in folder
+            if nrof_images == 1:
+                print("Folder contains only one file, don't do clustering")
+                image_dir = os.path.join(out_dir, person)
+                if not os.path.isdir(image_dir):  # Create the out directory if it doesn't exist
+                    os.makedirs(image_dir)
+                image_out = os.path.join(image_dir, label_strings_array[0])
+                copyfile(image_paths_array[0], image_out)
+                print("\tCopy Image image to path: " + str(image_out))
+                print("Continue next person...")
+                continue
 
             cluster = AgglomerativeClustering(n_clusters=None,
                                                 affinity=ARGS.affinity, 
