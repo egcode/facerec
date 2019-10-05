@@ -29,20 +29,30 @@ from datetime import datetime, timedelta
 from helpers import *
 
 """
-#################################################################################
-#################################################################################
-#################################################################################
-ARCFACE LOSS MS1-Celeb
-#################################################################################
 
-python3 app/export_embeddings.py ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth ./data/golovan_112/ \
+## Raw
+python3 app/export_embeddings.py \
+--model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--data_dir ./data/dataset_got/dataset_lanister/ \
+--output_dir data/out_embeddings/  \
+--model_type IR_50 \
+--is_aligned 0 \
+--with_demo_images 1 \
+--image_size 112 \
+--image_batch 5 \
+--h5_name dataset_lanister.h5
+
+## Aligned
+python3 app/export_embeddings.py \
+--model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--data_dir ./data/dataset_got/dataset_lanister_aligned_112/ \
+--output_dir data/out_embeddings/  \
 --model_type IR_50 \
 --is_aligned 1 \
 --with_demo_images 1 \
 --image_size 112 \
 --image_batch 5 \
---h5_name golovan_112.h5
-
+--h5_name dataset_lanister.h5
 """
 
 def writePersonMeanEmbeddingFile(h5_filename, person_name, mean_embedding):
@@ -169,6 +179,10 @@ def main(ARGS):
     out_dir = ARGS.output_dir
     if not os.path.isdir(out_dir):  # Create the out directory if it doesn't exist
         os.makedirs(out_dir)
+    else:
+        if os.path.exists(os.path.join(os.path.expanduser(out_dir), ARGS.h5_name)):
+            os.remove(os.path.join(os.path.expanduser(out_dir), ARGS.h5_name))
+        
 
     images_dir=None
     if ARGS.with_demo_images==1:
@@ -270,7 +284,7 @@ def main(ARGS):
     if not os.path.isfile(temp_file):
         assert "temp h5 file is not exist"
 
-    print('Extracting mean embeddings...')
+    print('Extracting mean embeddings...\n')
 
     # Data for each person in temp file
     with h5py.File(temp_file, 'r') as f:
@@ -282,6 +296,7 @@ def main(ARGS):
             embeddings_array = np.zeros((nrof_images, embedding_size))
             # label_strings_array = []
 
+            print('For {} extracted {} embeddings'.format(person, nrof_images))
             # print("\tembedding array shape: " + str(embeddings_array.shape))
             # print("\tnumber of images: " + str(nrof_images) + "  embedding size: " + str(embedding_size))
 
@@ -295,7 +310,7 @@ def main(ARGS):
             mean_embedding = np.mean(embeddings_array, axis=0)
             writePersonMeanEmbeddingFile(out_dir+ARGS.h5_name, person, mean_embedding)
 
-    print('Extracting mean embeddings done. time: ' + str(total_time))
+    print('\nExtracting mean embeddings done. time: ' + str(total_time))
     if os.path.exists(temp_file):
         os.remove(temp_file)
     else:
@@ -337,11 +352,11 @@ def load_and_align_data(image_path, image_size, margin, gpu_memory_fraction):
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('model_path', type=str, help='pth model file')
-    parser.add_argument('data_dir', type=str, help='Directory containing images. If images are not already aligned and cropped include --is_aligned False.')
+    parser.add_argument('--model_path', type=str, help='pth model file')
+    parser.add_argument('--data_dir', type=str, help='Directory containing images. If images are not already aligned and cropped include --is_aligned False.')
     parser.add_argument('--model_type', type=str, help='Model type to use for training.', default='IR_50')# support: ['ResNet_50', 'ResNet_101', 'ResNet_152', 'IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
     parser.add_argument('--input_size', type=str, help='support: [112, 112] and [224, 224]', default=[112, 112])
-    parser.add_argument('--output_dir', type=str, help='Dir where to save all embeddings and demo images', default='out_embeddings/')
+    parser.add_argument('--output_dir', type=str, help='Dir where to save all embeddings and demo images', default='data/out_embeddings/')
     parser.add_argument('--is_aligned', type=int, help='Is the data directory already aligned and cropped? 0:False 1:True', default=1)
     parser.add_argument('--with_demo_images', type=int, help='Embedding Images 0:False 1:True', default=1)
     parser.add_argument('--image_size', type=int, help='Image size (height, width) in pixels.', default=112)

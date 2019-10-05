@@ -6,8 +6,8 @@ from __future__ import print_function
 '''
 for N in {1..4}; do \
 python3 align_dataset_mtcnn.py \
-../data/lfw \
-../data/lfw_112 \
+../data/dataset_got/dataset_lanister \
+../data/dataset_got/dataset_lanister_aligned_112 \
 --image_size 112 \
 --margin 32 \
 --random_order \
