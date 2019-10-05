@@ -17,7 +17,7 @@ out_embeddings/
 # Pytorch models
 *.pth
 *.pt
-*.npy
+#*.npy
 # Distribution / packaging
 .Python
 env/
