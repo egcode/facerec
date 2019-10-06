@@ -1,24 +1,6 @@
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
-'''
-#################################################################################
-#################################################################################
-#################################################################################
-ARCFACE LOSS - MS1-Celeb
-#################################################################################
-
-python3 app/face_recognition_on_image.py \
---image_path ./data/dataset_got/test1.jpg \
---model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
---model_type IR_50 \
---unknown_face unknown \
---max_threshold 0.6 \
---distance_metric 1 \
---h5_name ./out_embeddings/dataset_targarien.h5
-'''
 
 import tensorflow as tf
 import numpy as np
@@ -45,6 +27,16 @@ from pdb import set_trace as bp
 import h5py                                                                                                                                                                                   
 import matplotlib.pyplot as plt
 
+'''
+python3 app/face_recognition_on_image.py \
+--image_path ./data/dataset_got/test1.jpg \
+--model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--model_type IR_50 \
+--unknown_face unknown \
+--max_threshold 0.6 \
+--distance_metric 1 \
+--h5_name ./data/out_embeddings/dataset_lanister.h5
+'''
 
 def main(ARGS):
   
