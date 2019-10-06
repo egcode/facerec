@@ -18,6 +18,14 @@ from pdb import set_trace as bp
 
 
 def add_overlays(frame, faces, ARGS):
+    font_scale = 1.0
+    # font = cv2.FONT_HERSHEY_PLAIN
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    rectangle_bgr = (0, 0, 0)
+    face_rectangle_thick = 2
+    bg_margin = 5
+    label_y_offset = bg_margin
+
     color_positive = (0, 255, 0)
     color_negative = (0, 0, 255)
     if faces is not None:
@@ -30,17 +38,25 @@ def add_overlays(frame, faces, ARGS):
                 color = color_positive
                 name = face.name
 
-            cv2.rectangle(frame,
-                          (face_bb[0], face_bb[1]), (face_bb[2], face_bb[3]),
-                          color, 2)
 
             final_name = name
             if ARGS.show_distance==1:
                 final_name = name + " " + str(round(face.distance, 2))
             
-            cv2.putText(frame, final_name, (face_bb[0], face_bb[3]),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, color,
+            # text bg
+            (text_width, text_height) = cv2.getTextSize(final_name, font, fontScale=font_scale, thickness=1)[0]
+            box_coords = ((face_bb[0]-bg_margin, face_bb[3]+(text_height+bg_margin+label_y_offset)), (face_bb[0] + text_width+bg_margin, face_bb[3]-(bg_margin-label_y_offset)))
+            cv2.rectangle(frame, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
+            
+            # text
+            cv2.putText(frame, final_name, (face_bb[0], face_bb[3]+(text_height+label_y_offset)),
+                    font, font_scale, color,
                     thickness=2, lineType=2)
+
+            # Main face rectangle on top
+            cv2.rectangle(frame,
+                          (face_bb[0], face_bb[1]), (face_bb[2], face_bb[3]),
+                          color, face_rectangle_thick)
 
 class Face:
     def __init__(self):
