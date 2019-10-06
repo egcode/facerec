@@ -3,22 +3,6 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-'''
-#################################################################################
-#################################################################################
-#################################################################################
-ARCFACE LOSS - MS1-Celeb
-#################################################################################
-
-python3 app/face_recognition_live_cam.py \
---model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
---model_type IR_50 \
---unknown_face unknown \
---max_threshold 0.6 \
---distance_metric 1 \
---h5_name ./out_embeddings/golovan_112.h5
-'''
-
 import tensorflow as tf
 import numpy as np
 import argparse
@@ -43,6 +27,15 @@ from helpers import *
 from pdb import set_trace as bp
 import h5py                                                                                                                                                                                   
 
+'''
+python3 app/face_recognition_live_cam.py \
+--model_path ./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--model_type IR_50 \
+--unknown_face unknown \
+--max_threshold 0.6 \
+--distance_metric 1 \
+--h5_name ./out_embeddings/golovan_112.h5
+'''
 
 def main(ARGS):
   
