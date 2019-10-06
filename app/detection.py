@@ -18,7 +18,7 @@ from pdb import set_trace as bp
 
 
 def add_overlays(frame, faces, ARGS):
-    font_scale = 1.0
+    font_scale = ARGS.font_size
     # font = cv2.FONT_HERSHEY_PLAIN
     font = cv2.FONT_HERSHEY_SIMPLEX
     rectangle_bgr = (0, 0, 0)

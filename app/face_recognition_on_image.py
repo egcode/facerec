@@ -35,6 +35,7 @@ python3 app/face_recognition_on_image.py \
 --unknown_face unknown \
 --max_threshold 0.6 \
 --distance_metric 1 \
+--font_size 0.5 \
 --h5_name ./data/out_embeddings/dataset_lanister.h5
 '''
 
@@ -123,6 +124,7 @@ def parse_arguments(argv):
     parser.add_argument('--unknown_face', type=str, help='Unknown face will be labeled with this string', default='unknown')
     parser.add_argument('--max_threshold', type=float, help='If distance larger than this value, class labeled as unknown_face parameter', default=0.6)
     parser.add_argument('--h5_name', type=str, help='h5 file name', default='./output_arrays/dataset.h5')
+    parser.add_argument('--font_size', type=float, help='Face label font size', default=1.0)
     return parser.parse_args(argv)
 
 if __name__ == '__main__':
