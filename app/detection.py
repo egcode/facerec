@@ -43,13 +43,25 @@ def add_overlays(frame, faces, ARGS):
             if ARGS.show_distance==1:
                 final_name = name + " " + str(round(face.distance, 2))
             
+            # ######## Centered
+            # # text bg
+            # (text_width, text_height) = cv2.getTextSize(final_name, font, fontScale=font_scale, thickness=1)[0]
+            # box_coords = ((face_bb[0]-bg_margin, face_bb[3]+(text_height+bg_margin+label_y_offset)), (face_bb[0] + text_width+bg_margin, face_bb[3]-(bg_margin-label_y_offset)))
+            # cv2.rectangle(frame, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
+            
+            # # text
+            # cv2.putText(frame, final_name, (face_bb[0], face_bb[3]+(text_height+label_y_offset)),
+            #         font, font_scale, color,
+            #         thickness=2, lineType=2)
+
+            ####### Aligned to Right 
             # text bg
             (text_width, text_height) = cv2.getTextSize(final_name, font, fontScale=font_scale, thickness=1)[0]
-            box_coords = ((face_bb[0]-bg_margin, face_bb[3]+(text_height+bg_margin+label_y_offset)), (face_bb[0] + text_width+bg_margin, face_bb[3]-(bg_margin-label_y_offset)))
+            box_coords = ((face_bb[0]-(bg_margin-bg_margin), face_bb[3]+(text_height+bg_margin+label_y_offset)), (face_bb[0] + text_width+(bg_margin+bg_margin), face_bb[3]-(bg_margin-label_y_offset)))
             cv2.rectangle(frame, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
             
             # text
-            cv2.putText(frame, final_name, (face_bb[0], face_bb[3]+(text_height+label_y_offset)),
+            cv2.putText(frame, final_name, (face_bb[0]+(bg_margin), face_bb[3]+(text_height+label_y_offset)),
                     font, font_scale, color,
                     thickness=2, lineType=2)
 
