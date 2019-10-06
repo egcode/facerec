@@ -27,7 +27,7 @@ from helpers import *
 """
 python3 app/export_embeddings.py \
 --model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
---data_dir ./data/dataset_got/dataset_lanister/ \
+--data_dir ./data/dataset_got/dataset_lanister_raw/ \
 --output_dir data/out_embeddings/  \
 --model_type IR_50 \
 --is_aligned 0 \
