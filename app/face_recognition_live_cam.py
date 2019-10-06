@@ -1,23 +1,15 @@
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import tensorflow as tf
 import numpy as np
 import argparse
 import os
 import sys
-import math
-import pickle
-from sklearn.svm import SVC
-from scipy import misc
-import align.detect_face
 from app.detection import Detection, Face, add_overlays
 import cv2
 from imutils.video import VideoStream
 import imutils
-import time
 import torch
 from torch.utils import data
 from torchvision import transforms as T
