@@ -10,10 +10,8 @@ from tqdm import tqdm
 import math
 
 data_dict = {
-    'Vggface2_raw':'1jdZw6ZmB7JRK6RS6QP3YEr2sufJ5ibtO',
-    'Deepglint_112':'1Lqvh24913uquWxa3YS_APluEmbNKQ4Us',
+    'pth':'1mmHrBVl16HQEjLpXk--6Z5dwfbselKBW',
     'CASIA_Webface_160':'175YhXe26wMMxSRuKGAbbVCkY5MLDk5m7', 
-    'CASIA_and_Golovan_160' : '1Z1nzXX9KxUUjGauc5hHcj9dwgybsecNj',
     'LFW_112': '11-uZAudZsBX5NkmYtYeMR0PPaWN3KVSG',
     'CPLFW_112': '1YeWzDL8XmAWXoRx5mVcObxwczGLP7Tsh',
     'CALFW_112': '1J2KXbbfBpxxFdvPhAi0q5MHjTS7O4Ai6',
@@ -87,4 +85,6 @@ if __name__ == '__main__':
     download_and_extract_file('CFP_112', out_dir)
 
     download_and_extract_file('CASIA_Webface_160', out_dir)
+    
+    download_and_extract_file('pth', out_dir)
 
