@@ -11,12 +11,9 @@ import sys
 import os
 import argparse
 import glob
-
 from pdb import set_trace as bp
-
 from six.moves import xrange
 from dataset.dataset_helpers import *
-
 import torch
 from torch.utils import data
 from torchvision import transforms as T
@@ -30,6 +27,8 @@ from datetime import datetime, timedelta
 ### Requirement: name, path, embedding
 
 '''
+# Dataset Structure:
+
 person1_name
     label    0
     person1_subgroup_1
@@ -52,20 +51,14 @@ person2_name
 
 
 """
-
-#################################################################################
-#################################################################################
-#################################################################################
-COSFACE LOSS-Eugene Casia
-#################################################################################
+# Example Usage:
 
 python3 dataset_cleanup/export_dataset_embeddings.py \
-./pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
-./data/embedding_test/ \
+./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+./data/dataset_got/dataset_targarien_aligned_112_dirty/ \
 --model_type IR_50 \
 --image_batch 5 \
---h5_name dataset.h5
-
+--h5_name dataset_targarien_aligned_112_dirty.h5
 """
 
 class FacesDataset(data.Dataset):

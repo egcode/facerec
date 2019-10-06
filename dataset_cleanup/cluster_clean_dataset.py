@@ -1,7 +1,23 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
+
+import os
+import sys
+import h5py
+import numpy as np
+import argparse
+import scipy.cluster.hierarchy as shc
+import matplotlib.pyplot as plt
+from sklearn.cluster import AgglomerativeClustering
+import time
+from datetime import datetime, timedelta
+from shutil import copyfile
+from pdb import set_trace as bp
+
 '''
+# Dataset Structure:
+
 person1_name
     label    0
     person1_subgroup_1
@@ -20,32 +36,20 @@ person2_name
         file_path    '/path/to/file1123123'
         embedding    [3.0, 41.1, 56.621]
 
+'''
 
-
+"""
+# Example Usage:
 
 python3 dataset_cleanup/cluster_clean_dataset.py \
 --affinity cosine \
 --linkage average \
 --distance_threshold 0.7 \
---h5_name data/dataset.h5 \
---output_clean_dataset data/dataset_clean \
---output_failed_images data/dataset_failed
-'''
+--h5_name data/dataset_targarien_aligned_112_dirty.h5 \
+--output_clean_dataset data/dataset_got/dataset_targarien_112_clean \
+--output_failed_images data/dataset_got/dataset_targarien_112_dirt
 
-import os
-import sys
-import h5py
-import numpy as np
-import argparse
-import scipy.cluster.hierarchy as shc
-import matplotlib.pyplot as plt
-from sklearn.cluster import AgglomerativeClustering
-import time
-from datetime import datetime, timedelta
-
-from shutil import copyfile
-
-from pdb import set_trace as bp
+"""
 
 def main(ARGS):
 
