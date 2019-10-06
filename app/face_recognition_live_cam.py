@@ -11,9 +11,6 @@ import cv2
 from imutils.video import VideoStream
 import imutils
 import torch
-from torch.utils import data
-from torchvision import transforms as T
-import torchvision
 from PIL import Image
 from helpers import *
 from pdb import set_trace as bp
