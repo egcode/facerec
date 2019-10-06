@@ -15,7 +15,8 @@ data_dict = {
     'LFW_112': '11-uZAudZsBX5NkmYtYeMR0PPaWN3KVSG',
     'CPLFW_112': '1YeWzDL8XmAWXoRx5mVcObxwczGLP7Tsh',
     'CALFW_112': '1J2KXbbfBpxxFdvPhAi0q5MHjTS7O4Ai6',
-    'CFP_112': '10yt5mx8ENx-QGOAXw2bfVUOfgN7rTKMY'
+    'CFP_112': '10yt5mx8ENx-QGOAXw2bfVUOfgN7rTKMY',
+    'dataset_got': '1bV2nb47pgk6EJlUbsAxWFsfJTquseMdJ'
     }
 
 def download_and_extract_file(model_name, data_dir):
@@ -85,6 +86,8 @@ if __name__ == '__main__':
     download_and_extract_file('CFP_112', out_dir)
 
     download_and_extract_file('CASIA_Webface_160', out_dir)
-    
+
     download_and_extract_file('pth', out_dir)
+    download_and_extract_file('dataset_got', out_dir)
+
 
