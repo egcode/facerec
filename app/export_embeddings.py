@@ -1,4 +1,3 @@
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -12,12 +11,9 @@ import os
 import argparse
 import align.detect_face
 import glob
-
 from pdb import set_trace as bp
-
 from six.moves import xrange
 from dataset.dataset_helpers import *
-
 import torch
 from torch.utils import data
 from torchvision import transforms as T
@@ -25,30 +21,16 @@ import torchvision
 from PIL import Image
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
-
 from helpers import *
 
-"""
 
-## Raw
+"""
 python3 app/export_embeddings.py \
 --model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
 --data_dir ./data/dataset_got/dataset_lanister/ \
 --output_dir data/out_embeddings/  \
 --model_type IR_50 \
 --is_aligned 0 \
---with_demo_images 1 \
---image_size 112 \
---image_batch 5 \
---h5_name dataset_lanister.h5
-
-## Aligned
-python3 app/export_embeddings.py \
---model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
---data_dir ./data/dataset_got/dataset_lanister_aligned_112/ \
---output_dir data/out_embeddings/  \
---model_type IR_50 \
---is_aligned 1 \
 --with_demo_images 1 \
 --image_size 112 \
 --image_batch 5 \
@@ -124,8 +106,6 @@ class FacesDataset(data.Dataset):
         self.margin = margin
         self.gpu_memory_fraction = gpu_memory_fraction
 
-        self.static = 0
-
     def __getitem__(self, index):
         img_path = self.image_list[index]
         img = Image.open(img_path)
@@ -148,17 +128,15 @@ class FacesDataset(data.Dataset):
         if self.demo_images_path is not None:
             ################################################
             ### SAVE Demo Images
-            prefix = str(self.static)+ '_' + str(self.names_list[index]) 
-
+            image_name = str(self.names_list[index]) + '_' + str(os.path.basename(img_path))
             ## Save Matplotlib
             im_da = np.asarray(image_data_rgb)
-            plt.imsave(self.demo_images_path + prefix + '.jpg', im_da)
+            plt.imsave(self.demo_images_path + image_name, im_da)
 
             ## Save OpenCV
             # image_BGR = cv2.cvtColor(image_data_rgb, cv2.COLOR_RGB2BGR)
             # cv2.imwrite(self.demo_images_path + prefix + '.png', image_BGR)
 
-            self.static += 1
             ################################################
 
         
