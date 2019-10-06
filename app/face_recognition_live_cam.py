@@ -24,7 +24,7 @@ python3 app/face_recognition_live_cam.py \
 --max_threshold 0.6 \
 --distance_metric 1 \
 --font_size 0.5 \
---h5_name ./data/out_embeddings/golovan_112.h5
+--h5_name ./data/out_embeddings/dataset_livecam.h5
 '''
 
 def main(ARGS):
