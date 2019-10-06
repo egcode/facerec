@@ -15,6 +15,8 @@ import align.detect_face
 from PIL import Image
 from helpers import *
 from pdb import set_trace as bp
+import tensorflow.python.util.deprecation as deprecation
+deprecation._PRINT_DEPRECATION_WARNINGS = False
 
 
 def add_overlays(frame, faces, ARGS):
