@@ -8,6 +8,12 @@ import sys
 from pdb import set_trace as bp
 from tqdm import tqdm
 import math
+import argparse
+
+"""
+python3 download_data.py \
+--download_type train
+"""
 
 data_dict = {
     'pth':'1mmHrBVl16HQEjLpXk--6Z5dwfbselKBW',
@@ -74,20 +80,29 @@ def save_response_content(r, destination):
         print("ERROR, something went wrong")  
 
 
-if __name__ == '__main__':
-    
-    out_dir = 'data/'
+def main(ARGS):
+
+    out_dir = ARGS.output_dir
     if not os.path.isdir(out_dir):  # Create the out directory if it doesn't exist
         os.makedirs(out_dir)
 
-    download_and_extract_file('LFW_112', out_dir)
-    download_and_extract_file('CPLFW_112', out_dir)
-    download_and_extract_file('CALFW_112', out_dir)
-    download_and_extract_file('CFP_112', out_dir)
+    if ARGS.download_type == 'train':
+        download_and_extract_file('LFW_112', out_dir)
+        download_and_extract_file('CPLFW_112', out_dir)
+        download_and_extract_file('CALFW_112', out_dir)
+        download_and_extract_file('CFP_112', out_dir)
+        download_and_extract_file('CASIA_Webface_160', out_dir)
+    elif ARGS.download_type == 'pth':
+        download_and_extract_file('pth', out_dir)
+    elif ARGS.download_type == 'dataset_got':
+        download_and_extract_file('dataset_got', out_dir)
 
-    download_and_extract_file('CASIA_Webface_160', out_dir)
 
-    download_and_extract_file('pth', out_dir)
-    download_and_extract_file('dataset_got', out_dir)
+def parse_arguments(argv):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--output_dir', type=str, help='Output dir where to download data.', default='data/')
+    parser.add_argument('--download_type', type=str, help='What to download.', default='train') # support ['train', 'pth', 'dataset_got']
+    return parser.parse_args(argv)
 
-
+if __name__ == '__main__':
+    main(parse_arguments(sys.argv[1:]))
