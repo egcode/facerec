@@ -11,8 +11,7 @@ import math
 import argparse
 
 """
-python3 download_data.py \
---download_type train
+python3 download_data.py --download_type train
 """
 
 data_dict = {
