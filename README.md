@@ -5,6 +5,9 @@ This is a Pytorch implementation of the face recognizer described in the papers:
 * [CosFace: Large Margin Cosine Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.09414.pdf). 
 * [A Discriminative Feature Learning Approach for Deep Face Recognition](https://ydwen.github.io/papers/WenECCV16.pdf). 
 
+### Face detection using MTCNN
+Face detection on images and live camera performed using Tensorflow MTCNN implementation. [Multi-task CNN](https://kpzhang93.github.io/MTCNN_face_detection_alignment/index.html). 
+A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-opencv)
 
 
 ## Pre-trained models
