@@ -1,16 +1,14 @@
-# Face Recognition using Pytorch
 
-This is a Pytorch implementation of the face recognizer described in the papers:
-* [ArcFace: Additive Angular Margin Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.07698.pdf). (recomended)
-* [CosFace: Large Margin Cosine Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.09414.pdf). 
-* [A Discriminative Feature Learning Approach for Deep Face Recognition](https://ydwen.github.io/papers/WenECCV16.pdf). 
-
-### Face detection using MTCNN
-Face detection on images and live camera performed using Tensorflow MTCNN implementation. [Multi-task CNN](https://kpzhang93.github.io/MTCNN_face_detection_alignment/index.html). 
-A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-opencv)
+# TODO: - Image Here
 
 
-# 1. QuickStart
+
+- [1. QuickStart](#1.-QuickStart)
+- [2. Train](#1.-Train)
+- [3. Dataset Cleanup](#1.-Dataset-Cleanup)
+
+
+## 1. QuickStart
 ```
 python3 app/export_embeddings.py \
 --model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
@@ -24,13 +22,23 @@ python3 app/export_embeddings.py \
 --h5_name dataset_lanister.h5
 
 ```
-# 1. Train
+## 2. Train
 
-# 1. Dataset Cleanup
-
-
+## 3. Dataset Cleanup
 
 
+
+
+## Face Recognition
+
+This is a Pytorch implementation of the face recognizer described in the papers:
+* [ArcFace: Additive Angular Margin Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.07698.pdf). (recomended)
+* [CosFace: Large Margin Cosine Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.09414.pdf). 
+* [A Discriminative Feature Learning Approach for Deep Face Recognition](https://ydwen.github.io/papers/WenECCV16.pdf). 
+
+## Face detection
+Face detection on images and live camera performed using Tensorflow MTCNN implementation. [Multi-task CNN](https://kpzhang93.github.io/MTCNN_face_detection_alignment/index.html). 
+A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-opencv)
 
 
 ## Pre-trained models
