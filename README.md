@@ -12,7 +12,7 @@ Face detection on images and live camera performed using Tensorflow MTCNN implem
 A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-opencv)
 
 
-## Contents
+# Contents
 - [QuickStart](#QuickStart)
 - [Train](#Train)
 - [Dataset Cleanup](#Dataset-Cleanup)
