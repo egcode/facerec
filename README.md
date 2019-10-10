@@ -10,6 +10,29 @@ Face detection on images and live camera performed using Tensorflow MTCNN implem
 A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-opencv)
 
 
+# 1. QuickStart
+```
+python3 app/export_embeddings.py \
+--model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--data_dir ./data/dataset_got/dataset_lanister_raw/ \
+--output_dir data/out_embeddings/  \
+--model_type IR_50 \
+--is_aligned 0 \
+--with_demo_images 1 \
+--image_size 112 \
+--image_batch 5 \
+--h5_name dataset_lanister.h5
+
+```
+# 1. Train
+
+# 1. Dataset Cleanup
+
+
+
+
+
+
 ## Pre-trained models
 | Model name      | LFW accuracy | Training dataset | Architecture |
 |-----------------|--------------|------------------|-------------|
