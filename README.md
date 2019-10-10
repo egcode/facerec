@@ -3,9 +3,7 @@
 
 
 
-- [1. QuickStart](#1.-QuickStart)
-- [2. Train](#1.-Train)
-- [3. Dataset Cleanup](#1.-Dataset-Cleanup)
+- [Compatibility](#Compatibility)
 
 
 ## 1. QuickStart
