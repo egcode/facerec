@@ -1,10 +1,9 @@
 # Face Recognition using Pytorch
 
 This is a Pytorch implementation of the face recognizer described in the papers:
--[ArcFace: Additive Angular Margin Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.07698.pdf). (recomended)
--[CosFace: Large Margin Cosine Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.09414.pdf). 
--[A Discriminative Feature Learning Approach
-for Deep Face Recognition](https://ydwen.github.io/papers/WenECCV16.pdf). 
+    - [ArcFace: Additive Angular Margin Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.07698.pdf). (recomended)
+    - [CosFace: Large Margin Cosine Loss for Deep Face Recognition](https://arxiv.org/pdf/1801.09414.pdf). 
+    - [A Discriminative Feature Learning Approach for Deep Face Recognition](https://ydwen.github.io/papers/WenECCV16.pdf). 
 
 
 
