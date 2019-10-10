@@ -1,18 +1,16 @@
 
 # TODO: - Image Here
 
-- [0.Installation](#0.Installation)
-- [1.QuickStart](#1.QuickStart)
-- [2.Train](#2.Train)
-- [3.Dataset Cleanup](#3.Dataset-Cleanup)
+- [QuickStart](#QuickStart)
+- [Train](#Train)
+- [Dataset Cleanup](#Dataset-Cleanup)
 - [Face Recognition](#Face-Recognition)
 - [Face detection](#Face-detection)
 - [Pre-trained models](#Pre-trained-models)
 - [Compatibility](#Compatibility)
 
-## 0.Installation
 
-## 1.QuickStart
+## QuickStart
 ```
 python3 app/export_embeddings.py \
 --model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
@@ -26,9 +24,9 @@ python3 app/export_embeddings.py \
 --h5_name dataset_lanister.h5
 
 ```
-## 2.Train
+## Train
 
-## 3.Dataset Cleanup
+## Dataset Cleanup
 
 
 
@@ -50,7 +48,7 @@ A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-
 |-----------------|--------------|------------------|-------------|
 | [IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962](https://drive.google.com/open?id=1itqqp1EWf6sfi0K4i6QYBR_j3NS7gw2i) | 0.9962        | M1-Celeb    | [IR_50](https://github.com/egcode/facerec/blob/master/models/irse.py) |
 
-NOTE: If you use any of the models, please do not forget to give proper credit to those providing the training dataset as well.
+NOTE: If you use any of the models here, please do not forget to give proper credit to those providing the training dataset as well.
 
 
 ## Compatibility
