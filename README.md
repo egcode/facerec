@@ -1,12 +1,18 @@
 
 # TODO: - Image Here
 
-
-
+- [0.Installation](#0.Installation)
+- [1.QuickStart](#1.QuickStart)
+- [2.Train](#2.Train)
+- [3.Dataset Cleanup](#3.Dataset-Cleanup)
+- [Face Recognition](#Face-Recognition)
+- [Face detection](#Face-detection)
+- [Pre-trained models](#Pre-trained-models)
 - [Compatibility](#Compatibility)
 
+## 0.Installation
 
-## 1. QuickStart
+## 1.QuickStart
 ```
 python3 app/export_embeddings.py \
 --model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
@@ -20,9 +26,9 @@ python3 app/export_embeddings.py \
 --h5_name dataset_lanister.h5
 
 ```
-## 2. Train
+## 2.Train
 
-## 3. Dataset Cleanup
+## 3.Dataset Cleanup
 
 
 
