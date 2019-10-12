@@ -21,17 +21,20 @@ A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-
 
 
 ## QuickStart
+```
+git clone https://github.com/egcode/facerec.git
+cd facerec
+```
 Install all dependencies from `requirements.txt`.
 
-`git clone https://github.com/egcode/facerec.git`
-`cd facerec`
-
 Download playground datased to `data/dataset_got` folder with command:
-`python3 download_data.py --download_type dataset_got`
-
+```
+python3 download_data.py --download_type dataset_got
+```
 Download pretrained model to `data/pth`:
-`python3 download_data.py --download_type pth`
-
+```
+python3 download_data.py --download_type pth
+```
 Generate dataset `.h5` file where labels and embeddings stored:
 ```
 python3 app/export_embeddings.py \
@@ -45,7 +48,6 @@ python3 app/export_embeddings.py \
 --image_batch 5 \
 --h5_name dataset_lanister.h5
 ```
-
 That's it. Now everything is ready to recognize faces from image or live camera.
 
 Face recognition with image:
@@ -67,36 +69,44 @@ Result should be like this image:
 Face recognition with live camera is pretty much the same but just with `face_recognition_live_cam.py` file. Make sure to generate `.h5` file with faces that will be visible on camera. 
 
 ## Train
-Install all dependencies from `requirements.txt` if you haven't already.
-`git clone https://github.com/egcode/facerec.git`
-`cd facerec`
+```
+git clone https://github.com/egcode/facerec.git
+cd facerec
+```
 
-Quick and easy way to start to train right away is to download all required validation datasets:
+Install all dependencies from `requirements.txt` if you haven't already.
+Download all required validation datasets:
 [LFW](http://vis-www.cs.umass.edu/lfw/), [CALFW](http://www.whdeng.cn/CALFW/index.html?reload=true), [CPLFW](http://www.whdeng.cn/CPLFW/index.html?reload=true), [CFP_FF](http://www.cfpw.io/), [CFP_FP](http://www.cfpw.io/)
-and [Casia-Webface](http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html) dataset.
-to do it, just run:
-`python3 download_data.py --download_type train`
+and [Casia-Webface](http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html) dataset:
+```
+python3 download_data.py --download_type train
+```
 
 this command will download all required datasets to `data` folder.
 Then you are ready to train.
-`python3 train.py`
+```
+python3 train.py
+```
 
 after you started training, make sure `out` folder created in the project root. All logs, saved model points and tensorboard logs are saved here.
 To start tensorboard to view training process just run:
-`python3 logger.py`
-
+```
+python3 logger.py
+```
 and open `http://localhost:6006/` to view training process.
 
 
 ## Dataset Cleanup
+```
+git clone https://github.com/egcode/facerec.git
+cd facerec
+```
 Install all dependencies from `requirements.txt` if you haven't already.
-`git clone https://github.com/egcode/facerec.git`
-`cd facerec`
-
 
 Download `dataset_got` playground dataset, if you haven't with a command
-`python3 download_data.py --download_type dataset_got`
-
+```
+python3 download_data.py --download_type dataset_got
+```
 After downloading complete, you should have `dataset_targarien_aligned_112_dirty` folder.
 This folder simulates dirty dataset, where images that starts with `DIRT*` represent noise that should be removed.
 To cleanup our dataset first we should export embeddings for each image to a `.h5` file.
