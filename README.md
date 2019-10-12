@@ -73,10 +73,10 @@ Install all dependencies from `requirements.txt` if you haven't already.
 git clone https://github.com/egcode/facerec.git
 cd facerec
 ```
-Quick and easy wat to start to train right away is to download all required validation datasets:
+Quick and easy way to start to train right away is to download all required validation datasets:
 [LFW](http://vis-www.cs.umass.edu/lfw/), [CALFW](http://www.whdeng.cn/CALFW/index.html?reload=true), [CPLFW](http://www.whdeng.cn/CPLFW/index.html?reload=true), [CFP_FF](http://www.cfpw.io/), [CFP_FP](http://www.cfpw.io/)
 and [Casia-Webface](http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html) dataset.
-to do it just run
+to do it, just run:
 
 ```
 python3 download_data.py --download_type train
@@ -92,7 +92,7 @@ To start tensorboard to view training process just run:
 ```
 python3 logger.py
 ```
-and open http://localhost:6006/
+and open `http://localhost:6006/` to view training process.
 
 
 ## Dataset Cleanup
