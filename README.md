@@ -68,7 +68,7 @@ Result should be like this image:
 Face recognition with live camera is pretty much the same but just with `face_recognition_live_cam.py` file. Make sure to generate `.h5` file with faces that will be visible on camera. 
 
 ## Train
-Install all dependencies from requirements.txt if you haven't.
+Install all dependencies from requirements.txt if you haven't already.
 ```
 git clone https://github.com/egcode/facerec.git
 cd facerec
