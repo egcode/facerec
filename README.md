@@ -47,7 +47,7 @@ python3 app/export_embeddings.py \
 --image_batch 5 \
 --h5_name dataset_lanister.h5
 ```
-That's it. Now everythin is ready to recognize faces from image or live camera.
+That's it. Now everything is ready to recognize faces from image or live camera.
 
 Face recognition with image:
 ```
