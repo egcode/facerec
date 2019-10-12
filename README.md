@@ -1,5 +1,5 @@
 
-# TODO: - Image Here
+![Result](readme/1.png)
 
 - [Intro](#Intro)
 - [QuickStart](#QuickStart)
@@ -19,6 +19,17 @@ A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-
 
 
 ## QuickStart
+Install all dependencies from requirements.txt.
+`cd` to project directory
+Download playground datased to `data/dataset_got` folder with command:
+```
+python3 download_data.py --download_type dataset_got
+```
+Download pretrained model to `data/pth`:
+```
+python3 download_data.py --download_type pth
+```
+Generate dataset `.h5` file where labels and embeddings stored:
 ```
 python3 app/export_embeddings.py \
 --model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
@@ -30,12 +41,91 @@ python3 app/export_embeddings.py \
 --image_size 112 \
 --image_batch 5 \
 --h5_name dataset_lanister.h5
+```
+That's it. Now everythin is ready to recognize faces from image or live camera.
+
+Face recognition with image:
+```
+python3 app/face_recognition_on_image.py \
+--image_path ./data/dataset_got/test3.jpg \
+--model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--model_type IR_50 \
+--unknown_face unknown \
+--max_threshold 0.6 \
+--distance_metric 1 \
+--font_size 0.5 \
+--h5_name ./data/out_embeddings/dataset_lanister.h5
+```
+Result should be like this image:  
+![Result](readme/2.png)
+
+
+Face recognition with live camera is pretty much the same but just with `face_recognition_live_cam.py` file. Make sure to generate `.h5` file with faces that will be visible on camera. 
+
+## Train
+Install all dependencies from requirements.txt if you haven't.
+
+Quick and easy wat to start to train right away is to download all required validation datasets:
+[LFW](http://vis-www.cs.umass.edu/lfw/), [CALFW](http://www.whdeng.cn/CALFW/index.html?reload=true), [CPLFW](http://www.whdeng.cn/CPLFW/index.html?reload=true), [CFP_FF](http://www.cfpw.io/), [CFP_FP](http://www.cfpw.io/)
+and [Casia-Webface](http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html) dataset.
+to do it just run
 
 ```
-## Train
+python3 download_data.py --download_type train
+```
+this command will download all required datasets to `data` folder.
+Then you are ready to train.
+
+```
+python3 train.py
+```
+after you started training, make sure `out` folder created in the project root. All logs, saved model points and tensorboard logs are saved here.
+To start tensorboard to view training process just run:
+```
+python3 logger.py
+```
+and open http://localhost:6006/
+
 
 ## Dataset Cleanup
+Install all dependencies from requirements.txt if you haven't.
 
+Download `dataset_got` playground dataset, if you haven't with a command
+```
+python3 download_data.py --download_type dataset_got
+```
+After downloading complete, you should have `dataset_targarien_aligned_112_dirty` folder.
+This folder simulates dirty dataset, where images that starts with `DIRT*` represent noise that should be removed.
+To cleanup our dataset first we should export embeddings for each image to a `.h5` file.
+
+```
+python3 dataset_cleanup/export_dataset_embeddings.py \
+./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+./data/dataset_got/dataset_targarien_aligned_112_dirty/ \
+--model_type IR_50 \
+--image_batch 5 \
+--h5_name dataset_targarien_aligned_112_dirty.h5
+```
+
+NOTE: If you are using your own images, make sure that all of them are pre-aligned. Use `align_dataset_mtcnn.py` to align if needed.
+
+Now we are ready to perform cleanup.
+```
+python3 dataset_cleanup/cluster_clean_dataset.py \
+--affinity cosine \
+--linkage average \
+--distance_threshold 0.7 \
+--h5_name data/dataset_targarien_aligned_112_dirty.h5 \
+--output_clean_dataset data/dataset_got/dataset_targarien_112_clean \
+--output_failed_images data/dataset_got/dataset_targarien_112_dirt
+```
+Cluster clean generates two new folders 
+`dataset_targarien_112_dirt` - all dirt that was cleaned out.
+`dataset_targarien_112_clean` - and new clean dataset without any dirt
+
+If you are exported embeddings with model that trained with Arface or Cosface `affinity` it is recommended to be `cosine`, if it's Center loss it's `euclidean`. If you need more  information about `affinity` or `linkage` you can find it [here](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html) 
+Distance threshold cut out images that are too far to form a cluster. Raw representation is in the image below 
+![Result](readme/Cluster.jpg)
 
 
 ## Pre-trained models
