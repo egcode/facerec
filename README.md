@@ -83,12 +83,12 @@ python3 download_data.py --download_type train
 ```
 
 this command will download all required datasets to `data` folder.
-Then you are ready to train.
+Start training:
 ```
 python3 train.py
 ```
 
-after you started training, make sure `out` folder created in the project root. All logs, saved model points and tensorboard logs are saved here.
+After training started, make sure `out` folder created in the project root. All logs, saved model points and tensorboard logs are saved here.
 To start tensorboard to view training process just run:
 ```
 python3 logger.py
@@ -107,8 +107,7 @@ Download `dataset_got` playground dataset, if you haven't with a command
 ```
 python3 download_data.py --download_type dataset_got
 ```
-After downloading complete, you should have `dataset_targarien_aligned_112_dirty` folder.
-This folder simulates dirty dataset, where images that starts with `DIRT*` represent noise that should be removed.
+After downloading complete, path `data/dataset_got/dataset_targarien_aligned_112_dirty` is the folder that simulates dirty dataset, where images that starts with `DIRT*` represent noise that should be removed.
 To cleanup our dataset first we should export embeddings for each image to a `.h5` file.
 ```
 python3 dataset_cleanup/export_dataset_embeddings.py \
@@ -135,7 +134,7 @@ Cluster clean generates two new folders
 `dataset_targarien_112_dirt` - all dirt that was cleaned out.
 `dataset_targarien_112_clean` - and new clean dataset without any dirt
 
-If you are exported embeddings with model that trained with Arface or Cosface `affinity` it is recommended to be `cosine`, if it's Center loss it's `euclidean`. If you need more  information about `affinity` or `linkage` you can find it [here](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html) 
+If embeddings exported with model that trained with Arface or Cosface `affinity` it is recommended to be `cosine`, if it's Center loss it's `euclidean`. If more information needed about `affinity` or `linkage` it could be found [here](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html) 
 Distance threshold cut out images that are too far to form a cluster. Raw representation is in the image below 
 ![Result](readme/Cluster.jpg)
 
