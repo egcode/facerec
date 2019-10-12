@@ -21,7 +21,7 @@ A OpenCV C++ implementation can be found [here](https://github.com/egcode/mtcnn-
 
 
 ## QuickStart
-Install all dependencies from requirements.txt.
+Install all dependencies from `requirements.txt`.
 ```
 git clone https://github.com/egcode/facerec.git
 cd facerec
@@ -68,7 +68,7 @@ Result should be like this image:
 Face recognition with live camera is pretty much the same but just with `face_recognition_live_cam.py` file. Make sure to generate `.h5` file with faces that will be visible on camera. 
 
 ## Train
-Install all dependencies from requirements.txt if you haven't already.
+Install all dependencies from `requirements.txt` if you haven't already.
 ```
 git clone https://github.com/egcode/facerec.git
 cd facerec
@@ -96,7 +96,7 @@ and open http://localhost:6006/
 
 
 ## Dataset Cleanup
-Install all dependencies from requirements.txt if you haven't.
+Install all dependencies from `requirements.txt` if you haven't already.
 ```
 git clone https://github.com/egcode/facerec.git
 cd facerec
