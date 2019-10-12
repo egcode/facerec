@@ -150,3 +150,8 @@ NOTE: If you use any of the models here, please do not forget to give proper cre
 ## Compatibility
 The code is tested using Pytorch 1.0 under OSX 10.14.5 and Ubuntu 16.04 with Python 3.6. 
 
+## Inspiration
+[InsightFace_Pytorch](https://github.com/TreB1eN/InsightFace_Pytorch)
+[Face_Pytorch](https://github.com/wujiyang/Face_Pytorch)
+[face.evoLVe.PyTorch](https://github.com/ZhaoJ9014/face.evoLVe.PyTorch)
+[facenet](https://github.com/davidsandberg/facenet)
