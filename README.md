@@ -118,7 +118,7 @@ python3 dataset_cleanup/export_dataset_embeddings.py \
 --h5_name dataset_targarien_aligned_112_dirty.h5
 ```
 
-NOTE: If you are using your own images, make sure that all of them are pre-aligned. Use `align_dataset_mtcnn.py` to align if needed.
+NOTE: If you are using your own images, make sure that all of them are pre-aligned. Use `align_dataset_mtcnn.py` in `.align` folder to align if needed, 
 
 Now we are ready to perform cleanup.
 ```
