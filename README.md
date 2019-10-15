@@ -143,7 +143,7 @@ Distance threshold cut out images that are too far to form a cluster. Raw repres
 ****
 ## Pre-trained models
 
-## Model trained with M1-Celeb
+### 1.Model trained with M1-Celeb
 
 | Download | Training dataset | Architecture |
 |-----------------|------------------|-------------|
@@ -177,6 +177,8 @@ Distance threshold cut out images that are too far to form a cluster. Raw repres
   
     <img src="https://github.com/egcode/facerec/blob/master/readme/train_lfw9962.jpg" width="1000px"/>
 
+
+### 2...
 
 NOTE: If you use any of the models here, please do not forget to give proper credit to those providing the training dataset as well.
 
