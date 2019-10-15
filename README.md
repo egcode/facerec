@@ -137,13 +137,40 @@ Cluster clean generates two new folders
 
 If embeddings exported with model that trained with Arface or Cosface `affinity` it is recommended to be `cosine`, if it's Center loss it's `euclidean`. If more information needed about `affinity` or `linkage` it could be found [here](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html) 
 Distance threshold cut out images that are too far to form a cluster. Raw representation is in the image below 
-![Result](readme/Cluster.jpg)
+<img src="https://github.com/egcode/facerec/blob/master/readme/Cluster.jpg" width="500px"/>
 
 
-## Pre-trained models
-| Model name      | LFW accuracy | Training dataset | Architecture |
-|-----------------|--------------|------------------|-------------|
-| [IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962](https://drive.google.com/open?id=1itqqp1EWf6sfi0K4i6QYBR_j3NS7gw2i) | 0.9962        | M1-Celeb    | [IR_50](https://github.com/egcode/facerec/blob/master/models/irse.py) |
+****
+### Pre-trained models
+
+* Model trained with M1-Celeb
+
+| Download Link | Training dataset | Architecture |
+|-----------------|------------------|-------------|
+| [Link](https://drive.google.com/open?id=1itqqp1EWf6sfi0K4i6QYBR_j3NS7gw2i)| M1-Celeb    | [IR_50](https://github.com/egcode/facerec/blob/master/models/irse.py) |
+
+  * Parameters
+  ```
+    python3 train.py \
+    --model_type IR_50 \
+    --data_dir ./data/MS_Celeb_1M_112 \
+    --batch_size 128 \
+    --batch_size_test 128 \
+    --evaluate_batch_size 128 \
+    --criterion_type arcface \
+    --total_loss_type softmax \
+    --optimizer_type sgd_bn \
+    --margin_s 32.0 \
+    --margin_m 0.5 \
+    --validation_set_split_ratio 0.0 \
+    --lr 0.1 \
+    --lr_schedule_steps 30 55 75 \
+    --apex_opt_level 2
+  ```
+  * Training statistics
+  
+    <img src="https://github.com/egcode/facerec/blob/master/readme/train_lfw9962.jpg" width="1000px"/>
+
 
 NOTE: If you use any of the models here, please do not forget to give proper credit to those providing the training dataset as well.
 
