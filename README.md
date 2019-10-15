@@ -141,16 +141,16 @@ Distance threshold cut out images that are too far to form a cluster. Raw repres
 
 
 ****
-### Pre-trained models
+## Pre-trained models
 
-# Model trained with M1-Celeb
+## Model trained with M1-Celeb
 
 | Download | Training dataset | Architecture |
 |-----------------|------------------|-------------|
 | [Link](https://drive.google.com/open?id=1itqqp1EWf6sfi0K4i6QYBR_j3NS7gw2i)| M1-Celeb    | [IR_50](https://github.com/egcode/facerec/blob/master/models/irse.py) |
 
   * Performance
-  
+
     |LFW|CFP_FF|CFP_FP|CALFW|CPLFW|
     |---|---|---|---|---|
     |99.62|99.26|90.09|92.65|81.15|
