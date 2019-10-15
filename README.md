@@ -151,7 +151,7 @@ Distance threshold cut out images that are too far to form a cluster. Raw repres
 
   * Performance
     |LFW|CFP_FF|CFP_FP|CALFW|CPLFW|
-    |:---:|:---:|:---:|:---:|:---:|
+    |---|---|---|---|---|
     |99.62|99.26|90.09|92.65|81.15|
 
   * Parameters
