@@ -21,7 +21,7 @@ data_dict = {
     'CPLFW_112': '1YeWzDL8XmAWXoRx5mVcObxwczGLP7Tsh',
     'CALFW_112': '1J2KXbbfBpxxFdvPhAi0q5MHjTS7O4Ai6',
     'CFP_112': '10yt5mx8ENx-QGOAXw2bfVUOfgN7rTKMY',
-    'dataset_got': '1bV2nb47pgk6EJlUbsAxWFsfJTquseMdJ'
+    'dataset_got': '1gx68QIZqhUaZTcOwI8qRabyNW-zY9yL9'
     }
 
 def download_and_extract_file(model_name, data_dir):
