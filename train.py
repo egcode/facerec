@@ -367,7 +367,7 @@ def parse_arguments(argv):
     parser.add_argument('--epochs', type=int, help='Training epochs training.', default=125)
     # Data
     parser.add_argument('--input_size', type=str, help='support: [112, 112] and [224, 224]', default=[112, 112])
-    parser.add_argument('--data_dir', type=str, help='Path to the data directory containing aligned face patches.', default='./data/CASIA_Webface_160')
+    parser.add_argument('--data_dir', type=str, help='Path to the data directory containing aligned face patches.', default='./data/CASIA-WebFace_160')
     parser.add_argument('--num_workers', type=int, help='Number of threads to use for data pipeline.', default=8)
     parser.add_argument('--batch_size', type=int, help='Number of batches while training model.', default=512)
     parser.add_argument('--batch_size_test', type=int, help='Number of batches while testing model.', default=512)
@@ -375,7 +375,7 @@ def parse_arguments(argv):
     parser.add_argument('--min_nrof_val_images_per_class', type=float, help='Classes with fewer images will be removed from the validation set', default=0)
     # Model
     parser.add_argument('--model_path', type=str, help='Model weights if needed.', default=None)
-    parser.add_argument('--model_type', type=str, help='Model type to use for training.', default='IR_50')# support: ['ResNet_50', 'ResNet_101', 'ResNet_152', 'IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
+    parser.add_argument('--model_type', type=str, help='Model type to use for training.', default='ResNet_50')# support: ['ResNet_50', 'ResNet_101', 'ResNet_152', 'IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
     parser.add_argument('--features_dim', type=int, help='Number of features for loss.', default=512)
     # Optimizer
     parser.add_argument('--optimizer_type', type=str, help='Optimizer Type.', default='sgd_bn') # support: ['sgd_bn','adam','sgd']
