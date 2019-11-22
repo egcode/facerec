@@ -9,5 +9,6 @@ scikit-learn==0.21.1
 requests==2.22.0
 opencv-contrib-python==4.1.0.25
 h5py==2.9.0
-tqdm==4.32.1
+tqdm==4.19.9
 imutils==0.5.2
+matplotlib==3.1.2
