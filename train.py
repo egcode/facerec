@@ -375,7 +375,7 @@ def parse_arguments(argv):
     parser.add_argument('--min_nrof_val_images_per_class', type=float, help='Classes with fewer images will be removed from the validation set', default=0)
     # Model
     parser.add_argument('--model_path', type=str, help='Model weights if needed.', default=None)
-    parser.add_argument('--model_type', type=str, help='Model type to use for training.', default='LightNet')# support: ['LightNet', 'MobileNet', 'ResNet_50', 'ResNet_101', 'ResNet_152', 'IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
+    parser.add_argument('--model_type', type=str, help='Model type to use for training.', default='ResNet_50')# support: ['LightNet', 'MobileNet', 'ResNet_50', 'ResNet_101', 'ResNet_152', 'IR_50', 'IR_101', 'IR_152', 'IR_SE_50', 'IR_SE_101', 'IR_SE_152']
     parser.add_argument('--features_dim', type=int, help='Number of features for loss.', default=512)
     # Optimizer
     parser.add_argument('--optimizer_type', type=str, help='Optimizer Type.', default='sgd_bn') # support: ['sgd_bn','adam','sgd']
