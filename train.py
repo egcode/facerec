@@ -12,7 +12,7 @@ import numpy as np
 import math
 import argparse
 from sklearn import metrics
-from losses.ArcFaceLossMargin import ArcFaceLossMargin
+from losses.ArcFaceLossMargin import ArcFaceLossMargin, ArcFaceLossMargin2
 from losses.CosFaceLossMargin import CosFaceLossMargin
 from losses.CombinedLossMargin import CombinedLossMargin
 from losses.CenterLoss import CenterLoss
@@ -68,6 +68,9 @@ def train(ARGS, model, device, train_loader, total_loss, loss_criterion, optimiz
         features = model(data)
 
         if ARGS.criterion_type == 'arcface':
+            logits = loss_criterion(features, target)
+            loss = total_loss(logits, target)
+        if ARGS.criterion_type == 'arcface2':
             logits = loss_criterion(features, target)
             loss = total_loss(logits, target)
         elif ARGS.criterion_type == 'cosface':
@@ -138,6 +141,9 @@ def test(ARGS, model, device, test_loader, total_loss, loss_criterion, log_file_
                 feats = model(data)
 
                 if ARGS.criterion_type == 'arcface':
+                    logits = loss_criterion(feats, target)
+                    outputs = logits
+                if ARGS.criterion_type == 'arcface2':
                     logits = loss_criterion(feats, target)
                     outputs = logits
                 elif ARGS.criterion_type == 'cosface':
@@ -286,6 +292,9 @@ def main(ARGS):
     if ARGS.criterion_type == 'arcface':
         distance_metric = 1
         loss_criterion = ArcFaceLossMargin(num_classes=train_loader.dataset.num_classes, feat_dim=ARGS.features_dim, device=device, s=ARGS.margin_s, m=ARGS.margin_m).to(device)
+    if ARGS.criterion_type == 'arcface2':
+        distance_metric = 1
+        loss_criterion = ArcFaceLossMargin2(num_classes=train_loader.dataset.num_classes, feat_dim=ARGS.features_dim, device=device, s=ARGS.margin_s, m=ARGS.margin_m).to(device)
     elif ARGS.criterion_type == 'cosface':
         distance_metric = 1
         loss_criterion = CosFaceLossMargin(num_classes=train_loader.dataset.num_classes, feat_dim=ARGS.features_dim, device=device, s=ARGS.margin_s, m=ARGS.margin_m).to(device)
@@ -296,7 +305,7 @@ def main(ARGS):
         distance_metric = 0
         loss_criterion = CenterLoss(device=device, num_classes=train_loader.dataset.num_classes, feat_dim=ARGS.features_dim, use_gpu=use_cuda)
     else:
-        raise AssertionError('Unsuported criterion_type {}. We only support:  [\'arcface\', \'cosface\', \'combined\', \'centerloss\']'.format(ARGS.criterion_type))
+        raise AssertionError('Unsuported criterion_type {}. We only support:  [\'arcface\', \'arcface2\', \'cosface\', \'combined\', \'centerloss\']'.format(ARGS.criterion_type))
 
     if ARGS.loss_path != None:
         if use_cuda:
@@ -387,7 +396,7 @@ def parse_arguments(argv):
     parser.add_argument('--momentum', type=float, default=0.9, help='momentum')
     # Loss 
     parser.add_argument('--total_loss_type', type=str, help='type of loss cosface or centerloss.', default='softmax') # support ['softmax', 'focal']
-    parser.add_argument('--criterion_type', type=str, help='type of loss cosface or centerloss.', default='arcface') # support ['arcface', 'cosface', 'combined', 'centerloss']
+    parser.add_argument('--criterion_type', type=str, help='type of loss cosface or centerloss.', default='arcface') # support ['arcface', 'arcface2', 'cosface', 'combined', 'centerloss']
     parser.add_argument('--loss_path', type=str, help='Loss weights if needed.', default=None)
     parser.add_argument('--margin_s', type=float, help='scale for feature.', default=32.0)
     parser.add_argument('--margin_m', type=float, help='margin for arcface loss.', default=0.5)
