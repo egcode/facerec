@@ -70,13 +70,13 @@ def train(ARGS, model, device, train_loader, total_loss, loss_criterion, optimiz
         if ARGS.criterion_type == 'arcface':
             logits = loss_criterion(features, target)
             loss = total_loss(logits, target)
-        if ARGS.criterion_type == 'arcface2':
+        elif ARGS.criterion_type == 'arcface2':
             logits = loss_criterion(features, target)
             loss = total_loss(logits, target)
         elif ARGS.criterion_type == 'cosface':
             logits, mlogits = loss_criterion(features, target)
             loss = total_loss(mlogits, target)
-        if ARGS.criterion_type == 'combined':
+        elif ARGS.criterion_type == 'combined':
             logits = loss_criterion(features, target)
             loss = total_loss(logits, target)
         elif ARGS.criterion_type == 'centerloss':
@@ -143,13 +143,13 @@ def test(ARGS, model, device, test_loader, total_loss, loss_criterion, log_file_
                 if ARGS.criterion_type == 'arcface':
                     logits = loss_criterion(feats, target)
                     outputs = logits
-                if ARGS.criterion_type == 'arcface2':
+                elif ARGS.criterion_type == 'arcface2':
                     logits = loss_criterion(feats, target)
                     outputs = logits
                 elif ARGS.criterion_type == 'cosface':
                     logits, _ = loss_criterion(feats, target)
                     outputs = logits
-                if ARGS.criterion_type == 'combined':
+                elif ARGS.criterion_type == 'combined':
                     logits = loss_criterion(feats, target)
                     outputs = logits
                 elif ARGS.criterion_type == 'centerloss':
@@ -289,10 +289,11 @@ def main(ARGS):
 
     ####### Criterion setup
     print('Criterion type: %s' % ARGS.criterion_type)
+    bp()
     if ARGS.criterion_type == 'arcface':
         distance_metric = 1
         loss_criterion = ArcFaceLossMargin(num_classes=train_loader.dataset.num_classes, feat_dim=ARGS.features_dim, device=device, s=ARGS.margin_s, m=ARGS.margin_m).to(device)
-    if ARGS.criterion_type == 'arcface2':
+    elif ARGS.criterion_type == 'arcface2':
         distance_metric = 1
         loss_criterion = ArcFaceLossMargin2(num_classes=train_loader.dataset.num_classes, feat_dim=ARGS.features_dim, device=device, s=ARGS.margin_s, m=ARGS.margin_m).to(device)
     elif ARGS.criterion_type == 'cosface':
