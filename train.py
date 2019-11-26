@@ -289,7 +289,6 @@ def main(ARGS):
 
     ####### Criterion setup
     print('Criterion type: %s' % ARGS.criterion_type)
-    bp()
     if ARGS.criterion_type == 'arcface':
         distance_metric = 1
         loss_criterion = ArcFaceLossMargin(num_classes=train_loader.dataset.num_classes, feat_dim=ARGS.features_dim, device=device, s=ARGS.margin_s, m=ARGS.margin_m).to(device)
