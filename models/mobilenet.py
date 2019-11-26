@@ -132,12 +132,12 @@ class MobileNetV2(nn.Module):
         # building out
         if input_size[0] == 112:
             self.out = nn.Sequential(
-                # nn.Dropout(0.2),
+                nn.Dropout(0.2),
                 nn.Linear(1280, 512),
             )
         else:
             self.out = nn.Sequential(
-                # nn.Dropout(0.2),
+                nn.Dropout(0.2),
                 nn.Linear(1280, 512),
             )
 
