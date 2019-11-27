@@ -117,28 +117,17 @@ class MobileNetV2(nn.Module):
         features.append(ConvBNReLU(input_channel, self.last_channel, kernel_size=1))
         # make it nn.Sequential
         self.features = nn.Sequential(*features)
-        # bp()
-        # # building out
-        # if input_size[0] == 112:
-        #     self.out = nn.Sequential(
-        #         nn.Dropout(0.2),
-        #         nn.Linear(1280 * 4 * 4, 512),
-        #     )
-        # else:
-        #     self.out = nn.Sequential(
-        #         nn.Dropout(0.2),
-        #         nn.Linear(1280 * 8 * 8, 512),
-        #     )
+
         # building out
         if input_size[0] == 112:
             self.out = nn.Sequential(
-                # nn.Dropout(0.2),
+                nn.Dropout(0.2),
                 nn.Linear(1280, 512),
             )
         else:
             self.out = nn.Sequential(
-                # nn.Dropout(0.2),
-                nn.Linear(1280, 512),
+                nn.Dropout(0.2),
+                nn.Linear(1280, 512), # TODO : Should be corrected
             )
 
         # weight initialization
