@@ -12,7 +12,7 @@ import numpy as np
 import math
 import argparse
 from sklearn import metrics
-from losses.ArcFaceLossMargin import ArcFaceLossMargin, ArcFaceLossMargin2
+from losses.ArcFaceLossMargin import ArcFaceLossMargin
 from losses.CosFaceLossMargin import CosFaceLossMargin
 from losses.CombinedLossMargin import CombinedLossMargin
 from losses.CenterLoss import CenterLoss
