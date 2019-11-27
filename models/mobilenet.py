@@ -127,7 +127,7 @@ class MobileNetV2(nn.Module):
         else:
             self.out = nn.Sequential(
                 nn.Dropout(0.2),
-                nn.Linear(1280, 512),
+                nn.Linear(1280, 512), # TODO : Should be corrected
             )
 
         # weight initialization
