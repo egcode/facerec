@@ -143,7 +143,7 @@ Distance threshold cut out images that are too far to form a cluster. Raw repres
 ****
 ## Pre-trained models
 
-### 1.Model trained with M1-Celeb
+### 1.
 
 | Download | Training dataset | Architecture |
 |-----------------|------------------|-------------|
@@ -178,7 +178,41 @@ Distance threshold cut out images that are too far to form a cluster. Raw repres
     <img src="https://github.com/egcode/facerec/blob/master/readme/train_lfw9962.jpg" width="1000px"/>
 
 
-### 2...
+### 2.
+
+| Download | Training dataset | Architecture |
+|-----------------|------------------|-------------|
+| [Link](https://drive.google.com/open?id=1RB81mH38lLJ3v1c9CP-8fFOORlgYPmVI)| M1-Celeb    | [MobileNet](https://github.com/egcode/facerec/blob/master/models/mobilenet.py) |
+
+  * Performance
+
+    |LFW|CFP_FF|CFP_FP|CALFW|CPLFW|
+    |---|---|---|---|---|
+    |96.93|96.84|79.26|80.95|61.27|
+
+  * Parameters
+  ```
+    python3 train.py \
+    --model_type MobileNet \
+    --data_dir ./data/MS_Celeb_1M_112_filtered \
+    --batch_size 512 \
+    --batch_size_test 512 \
+    --evaluate_batch_size 512 \
+    --criterion_type arcface \
+    --total_loss_type softmax \
+    --optimizer_type sgd_bn \
+    --margin_s 32.0 \
+    --margin_m 0.5 \
+    --validation_set_split_ratio 0.0 \
+    --lr 0.1 \
+    --lr_schedule_steps 20 40 60 \
+    --epochs 100 \
+    --apex_opt_level 2 \
+    --model_save_latest_path ./pth_latest
+  ```
+  * Training statistics
+  
+    <img src="https://github.com/egcode/facerec/blob/master/readme/train_lfw9693.jpg" width="1000px"/>
 
 NOTE: If you use any of the models here, please do not forget to give proper credit to those providing the training dataset as well.
 
