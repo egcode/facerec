@@ -15,7 +15,7 @@ python3 download_data.py --download_type train
 """
 
 data_dict = {
-    'pth':'1mmHrBVl16HQEjLpXk--6Z5dwfbselKBW',
+    'pth':'17nngVqK_crnTWYm7KltkoBQuScjOpVEI',
     'CASIA_Webface_160':'175YhXe26wMMxSRuKGAbbVCkY5MLDk5m7', 
     'LFW_112': '11-uZAudZsBX5NkmYtYeMR0PPaWN3KVSG',
     'CPLFW_112': '1YeWzDL8XmAWXoRx5mVcObxwczGLP7Tsh',
