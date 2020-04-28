@@ -197,12 +197,6 @@ class MobileNetV3(nn.Module):
         # make it nn.Sequential
         self.features = nn.Sequential(*self.features)
 
-        # # building classifier
-        # self.classifier = nn.Sequential(
-        #     nn.Dropout(p=dropout),    # refer to paper section 6
-        #     nn.Linear(last_channel, n_class),
-        # )
-
         # building out
         if input_size[0] == 112:
             self.out = nn.Sequential(
@@ -220,10 +214,6 @@ class MobileNetV3(nn.Module):
     def forward(self, x):
         x = self.features(x)
         x = x.mean(3).mean(2)
-        # x = self.classifier(x)
-
-        # bp()
-        # x = x.mean([2, 3])
         x = x.view(x.size(0), -1)
         x = self.out(x)
         
