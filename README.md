@@ -182,7 +182,7 @@ Distance threshold cut out images that are too far to form a cluster. Raw repres
 
 | Download | Training dataset | Architecture |
 |-----------------|------------------|-------------|
-| [Link](https://drive.google.com/open?id=1RB81mH38lLJ3v1c9CP-8fFOORlgYPmVI)| M1-Celeb    | [MobileNet](https://github.com/egcode/facerec/blob/master/models/mobilenet.py) |
+| [Link](https://drive.google.com/open?id=1RB81mH38lLJ3v1c9CP-8fFOORlgYPmVI)| M1-Celeb    | [MobileNet_V2](https://github.com/egcode/facerec/blob/master/models/mobilenet_v2.py) |
 
   * Performance
 
@@ -193,7 +193,7 @@ Distance threshold cut out images that are too far to form a cluster. Raw repres
   * Parameters
   ```
     python3 train.py \
-    --model_type MobileNet \
+    --model_type MobileNet_V2 \
     --data_dir ./data/MS_Celeb_1M_112_filtered \
     --batch_size 512 \
     --batch_size_test 512 \
