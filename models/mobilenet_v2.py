@@ -6,7 +6,7 @@ except ImportError:
 from pdb import set_trace as bp
 
 
-# Support: ['MobileNet']
+# Support: ['MobileNet_V2']
 
 
 def _make_divisible(v, divisor, min_value=None):
@@ -151,7 +151,7 @@ class MobileNetV2(nn.Module):
         return x
 
 
-def MobileNet(input_size, **kwargs):
+def MobileNet_V2(input_size, **kwargs):
     """
     Constructs a MobileNetV2 architecture from
     `"MobileNetV2: Inverted Residuals and Linear Bottlenecks" <https://arxiv.org/abs/1801.04381>`_.

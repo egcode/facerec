@@ -13,7 +13,7 @@ from scipy import spatial
 import math
 from models.resnet import *
 from models.irse import *
-from models.mobilenet import *
+from models.mobilenet_v2 import *
 from models.lightnet import *
 
 from pdb import set_trace as bp
@@ -24,8 +24,8 @@ from pdb import set_trace as bp
 def get_model(model_type, input_size):
     if model_type == 'LightNet':
         return LightNet(input_size)
-    if model_type == 'MobileNet':
-        return MobileNet(input_size)
+    if model_type == 'MobileNet_V2':
+        return MobileNet_V2(input_size)
     if model_type == 'ResNet_50':
         return ResNet_50(input_size)
     elif model_type == 'ResNet_101':
