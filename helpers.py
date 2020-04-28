@@ -14,6 +14,7 @@ import math
 from models.resnet import *
 from models.irse import *
 from models.mobilenet_v2 import *
+from models.mobilenet_v3 import *
 from models.lightnet import *
 
 from pdb import set_trace as bp
@@ -26,6 +27,10 @@ def get_model(model_type, input_size):
         return LightNet(input_size)
     if model_type == 'MobileNet_V2':
         return MobileNet_V2(input_size)
+    if model_type == 'MobileNet_V3_Small':
+        return MobileNet_V3_Small(input_size)
+    if model_type == 'MobileNet_V3_Large':
+        return MobileNet_V3_Large(input_size)
     if model_type == 'ResNet_50':
         return ResNet_50(input_size)
     elif model_type == 'ResNet_101':
