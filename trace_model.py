@@ -41,7 +41,7 @@ def main(ARGS):
     embedding_size = 512
     model.eval()
 
-    example = torch.rand(1, 3, 224, 224)
+    example = torch.rand(1, 3, 112, 112)
     traced_script_module = torch.jit.trace(model, example)
     traced_script_module.save(ARGS.export_traced_model_path)
 
