@@ -183,12 +183,21 @@ def distance(embeddings1, embeddings2, distance_metric=0):
     elif distance_metric==1:
         # Distance based on cosine similarity
         
+        ##### Old
         # dot = np.sum(np.multiply(embeddings1, embeddings2), axis=1)
         # norm = np.linalg.norm(embeddings1, axis=1) * np.linalg.norm(embeddings2, axis=1)
         # similarity = dot / norm
         # dist = np.arccos(similarity) / math.pi
 
-        dist = spatial.distance.cosine(embeddings1, embeddings2)
+        ###### With `scipy`
+        # dist = spatial.distance.cosine(embeddings1, embeddings2)
+
+        ###### Based on `scipy`
+        uv = np.average(embeddings1 * embeddings2)
+        uu = np.average(np.square(embeddings1))
+        vv = np.average(np.square(embeddings2))
+        dist = 1.0 - uv / np.sqrt(uu * vv)
+        
 
     else:
         raise 'Undefined distance metric %d' % distance_metric 
