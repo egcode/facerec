@@ -87,10 +87,12 @@ def main(ARGS):
                     face.all_results_dict[label] = [dist]
                 # print("candidate: " + str(i) + " distance: " + str(dist) + " with " + labels_strings_array[j])
     
+    # print("Threshold: " + str(ARGS.max_threshold))
     for i in range(len(faces)):
         # print("FACE :" + str(i))
         # print(faces[i].all_results_dict)
         faces[i].parse_all_results_dict(ARGS.max_threshold)
+        # print("FACE :" + str(faces[i].name) + "   Distance:" +  str(faces[i].distance) )
 
     add_overlays(frame, faces, ARGS)
 
