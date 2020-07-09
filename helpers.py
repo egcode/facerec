@@ -190,13 +190,13 @@ def distance(embeddings1, embeddings2, distance_metric=0):
         # dist = np.arccos(similarity) / math.pi
 
         ###### With `scipy`
-        # dist = spatial.distance.cosine(embeddings1, embeddings2)
+        dist = spatial.distance.cosine(embeddings1, embeddings2)
 
         ###### Based on `scipy`
-        uv = np.average(embeddings1 * embeddings2)
-        uu = np.average(np.square(embeddings1))
-        vv = np.average(np.square(embeddings2))
-        dist = 1.0 - uv / np.sqrt(uu * vv)
+        # uv = np.average(embeddings1 * embeddings2)
+        # uu = np.average(np.square(embeddings1))
+        # vv = np.average(np.square(embeddings2))
+        # dist = 1.0 - uv / np.sqrt(uu * vv)
         
 
     else:
