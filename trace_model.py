@@ -14,6 +14,12 @@ python3 trace_model.py  \
 --import_pytorch_model_path ./data/pth/MobileNet_V3_Small_40.pth \
 --export_traced_model_path ./data/pth/MobileNet_V3_Small_40_traced_model.pt \
 --model_type MobileNet_V3_Small
+
+
+python3 trace_model.py  \
+--import_pytorch_model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962.pth \
+--export_traced_model_path ./data/pth/IR_50_MODEL_arcface_ms1celeb_epoch90_lfw9962_traced_model.pt \
+--model_type IR_50
 """
 
 def main(ARGS):
