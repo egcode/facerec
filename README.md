@@ -18,7 +18,8 @@ Face recognition in this repo performed using Pytorch, described in the papers:
 - [x] [A Discriminative Feature Learning Approach for Deep Face Recognition](https://ydwen.github.io/papers/WenECCV16.pdf). 
 
 
-Face Recognition C++ implementation can be found [here](https://github.com/egcode/facerec-cpp)
+[facerec-cpp](https://github.com/egcode/facerec-cpp) - C++ inference implementation with both `hdf5` and `protobuf` database support. 
+[facerec-ios](https://github.com/egcode/facerec-ios) -  iOS inference implementation with `protobuf` database support. 
 
 ## QuickStart
 ```
